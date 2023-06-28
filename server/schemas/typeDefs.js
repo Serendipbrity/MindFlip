@@ -8,6 +8,12 @@ const typeDefs = gql`
         password: String
     }
 
+    type Category {
+        _id: ID
+        category: String
+        flashcards: [FlashCards]
+    }
+
     type FlashCards {
         _id: ID
         frontInput: String
@@ -22,9 +28,8 @@ const typeDefs = gql`
     }
     type Mutation {
         addUser(username: String!, email: String!, password: String!): User
-    }
-    type Mutation {
-        addFlashCard(frontInput: String!, backInput: String!, category: ID, user: ID!): FlashCards
+  
+        addFlashCard(frontInput: String!, backInput: String!, category: ID, user: ID): FlashCards
     }
 `;
 
