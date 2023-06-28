@@ -5,7 +5,7 @@ const resolvers = {
         users: async () => {
             return await User.find({});
         },
-        flashcards: async () => { 
+        flashCards: async () => { 
             return await FlashCards.find({});
          }
     }

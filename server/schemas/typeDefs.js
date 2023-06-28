@@ -12,6 +12,8 @@ const typeDefs = gql`
         _id: ID
         frontInput: String
         backInput: String
+        category: ID
+        user: ID
     }
 
     type Query {
