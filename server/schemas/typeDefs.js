@@ -17,8 +17,14 @@ const typeDefs = gql`
     }
 
     type Query {
-        users: [User]
-        flashCards: [FlashCards]
+        viewUsers: [User]
+        viewFlashCards: [FlashCards]
+    }
+    type Mutation {
+        addUser(username: String!, email: String!, password: String!): User
+    }
+    type Mutation {
+        addFlashCard(frontInput: String!, backInput: String!, category: ID, user: ID!): FlashCards
     }
 `;
 
