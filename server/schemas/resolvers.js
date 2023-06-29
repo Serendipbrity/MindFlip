@@ -73,7 +73,23 @@ const resolvers = {
         console.log(err);
         throw new Error("No user found");
       }
-    },
+      },
+    //   delete user
+    deleteUser: async (_, { _id }) => {
+        try {
+            const user = await User.findById(_id);
+            if (!user) {
+                throw new Error("No user found");
+            }
+    
+            await User.findByIdAndDelete(_id);
+            return user;
+        } catch (err) {
+            console.log(err);
+            throw err;
+        }
+    }
+    
   },
 };
 

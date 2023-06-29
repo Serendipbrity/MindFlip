@@ -34,6 +34,8 @@ const typeDefs = gql`
         addUser(username: String!, email: String!, password: String!): User
 
         updateUser(_id:ID, username: String, email: String, password: String, flashcards:ID): User
+
+        deleteUser(_id: ID): User
   
         addFlashCard(frontInput: String!, backInput: String!, category: ID, user: ID): FlashCards
     }
