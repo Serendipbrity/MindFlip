@@ -2,9 +2,22 @@ const { User, FlashCards } = require('../models');
 
 const resolvers = {
     Query: {
+        // view all users
         viewUsers: async () => {
-            return await User.find();
+            try {
+                const user = await User.find();
+                return user;
+            } catch (err) { 
+                console.log(err);
+                throw new Error("No user found")
+             }
+            
         },
+        // view a single user 
+        viewUser: async (args) => {
+            return await User.findOne({args});
+        },
+        // view all flash cards
         viewFlashCards: async () => { 
             return await FlashCards.find();
          }

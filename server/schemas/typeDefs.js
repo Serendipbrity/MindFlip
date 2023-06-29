@@ -24,6 +24,7 @@ const typeDefs = gql`
 
     type Query {
         viewUsers: [User]
+        viewUser: User
         viewFlashCards: [FlashCards]
     }
     type Mutation {
