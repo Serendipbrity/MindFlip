@@ -5,21 +5,44 @@ const resolvers = {
         // view all users
         viewUsers: async () => {
             try {
-                const user = await User.find();
-                return user;
+                const users = await User.find();
+                return users;
             } catch (err) { 
                 console.log(err);
-                throw new Error("No user found")
+                throw new Error("No users found")
              }
             
         },
         // view a single user 
         viewUser: async (args) => {
-            return await User.findOne({args});
+            try {
+                const user = await User.findOne({ args });
+                return user;
+            } catch {
+                console.log(err);
+                throw new Error("No user found")
+            }
+           
         },
         // view all flash cards
         viewFlashCards: async () => { 
-            return await FlashCards.find();
+            try {
+                const flachCards = await FlashCards.find();
+                return flachCards;
+            } catch (err) { 
+                console.log(err);
+                throw new Error("No flash cards found")
+             }
+        },
+        // view a single flash card
+        viewFlashCard: async (args) => { 
+            try {
+                const flashCard = await FlashCards.findOne({ args });
+                return flashCard;
+            } catch (err) { 
+                console.log(err);
+                throw new Error("No flash card found")
+             }
          }
     },
     Mutation: {

@@ -26,6 +26,7 @@ const typeDefs = gql`
         viewUsers: [User]
         viewUser: User
         viewFlashCards: [FlashCards]
+        viewFlashCard: FlashCards
     }
     type Mutation {
         addUser(username: String!, email: String!, password: String!): User
