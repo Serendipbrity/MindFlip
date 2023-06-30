@@ -12,7 +12,7 @@ function App() {
   return (
     <ApolloProvider client={client}>
        <div className="App">
-        <FlashCards/>
+        <FlashCards />
       </div>
    </ApolloProvider>
   );

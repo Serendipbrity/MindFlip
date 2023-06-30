@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 
 const {ApolloServer} = require('apollo-server-express');
 
@@ -24,7 +25,10 @@ const app = express();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-app.get('/', (req, res) => res.send('Hello World!'));
+// if app is deployed use static files from build folder
+if (process.env.NODE_ENV === 'production') { 
+    app.use(express.static(path.join(__dirname, '../client/build')));
+}
 
 // start apollo server and pass in express app as middleware then start express server
 const startApolloServer = async () => { 
