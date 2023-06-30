@@ -76,6 +76,20 @@ const resolvers = {
         throw new Error("No user found");
       }
       },
+    //   update flash card
+      updateFlashCard: async (_, args) => { 
+        try {
+          const flashCard = await FlashCards.findOneAndUpdate(
+            { _id: args._id },
+            args,
+            { new: true }
+          );
+          return flashCard;
+        } catch (err) {
+          console.log(err);
+          throw new Error("No flash card found");
+        }
+      },
     //   delete user
     deleteUser: async (_, { _id }) => {
         try {

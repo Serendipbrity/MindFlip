@@ -1,8 +1,8 @@
 # MindFlip
 
 ## graphql
-query = viewFlashCards, viewFlashCard, viewUsers, viewFriends
-mutation = addFlashCard, updateFlashCard, deleteFlashCard, addFriend, updateFriend, deleteFriend
+query = viewFriends
+mutation = updateFlashCard, deleteFlashCard, addFriend, updateFriend, deleteFriend
 
 ## backend
 express
