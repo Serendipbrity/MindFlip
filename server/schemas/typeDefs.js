@@ -21,7 +21,7 @@ const typeDefs = gql`
         frontInput: String
         backInput: String
         category: ID
-        user: ID
+        userId: ID
     }
 
     type Query {
@@ -37,7 +37,9 @@ const typeDefs = gql`
 
         deleteUser(_id: ID): User
   
-        addFlashCard(frontInput: String!, backInput: String!, category: ID, user: ID): FlashCards
+        addFlashCard(frontInput: String!, backInput: String!, category: ID, userId: ID): FlashCards
+
+        addFlashCardToUser(userId: ID, flashcards: ID): User
     }
 `;
 

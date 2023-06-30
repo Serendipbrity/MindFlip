@@ -4,9 +4,10 @@ const resolvers = {
   Query: {
     // view all users
     viewUsers: async () => {
-      try {
-        const users = await User.find();
-        return users;
+          try {
+        //   find all users and populate with flashcards
+              const users = await User.find().populate("flashcards");
+          return users;
       } catch (err) {
         console.log(err);
         throw new Error("No users found");
@@ -14,8 +15,9 @@ const resolvers = {
     },
     // view a single user
     viewUser: async (args) => {
-      try {
-        const user = await User.findOne({ args });
+        try {
+        //   find ine user and populate with flashcards
+        const user = await User.findOne({ args }).populate("flashcards");
         return user;
       } catch {
         console.log(err);
@@ -77,19 +79,43 @@ const resolvers = {
     //   delete user
     deleteUser: async (_, { _id }) => {
         try {
+            // --find-- user by id
             const user = await User.findById(_id);
+            // if no user found throw error
             if (!user) {
                 throw new Error("No user found");
             }
-    
+            // --delete-- user
             await User.findByIdAndDelete(_id);
+            // return deleted user to confirm
             return user;
         } catch (err) {
             console.log(err);
             throw err;
         }
-    }
-    
+    },
+    // add flashcards to user
+    addFlashCardToUser: async (_, { userId, flashcards }) => {
+        try {
+            // find user by userId and update with flashcards
+          const user = await User.findByIdAndUpdate(
+              userId,
+            // $addToSet so we don't add duplicates
+              { $addToSet: { flashcards: flashcards } },
+            // return updated data
+              { new: true }
+            // populate with flashcards
+          ).populate("flashcards");
+          if (!user) {
+            throw new Error('User not found');
+          }
+          return user;
+        } catch (err) {
+          console.log(err);
+          throw err;
+        }
+      }
+      
   },
 };
 

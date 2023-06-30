@@ -20,7 +20,7 @@ const flashCardSchema = new Schema(
         },
         // can make this an array of objects if need be. 
         // flashcards belong to one user
-        user: {
+        userId: {
             type: Schema.Types.ObjectId,
             ref: 'User'
         }
