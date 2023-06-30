@@ -107,7 +107,25 @@ const resolvers = {
             console.log(err);
             throw err;
         }
-    },
+      },
+    //   delete flash card
+      deleteFlashCard: async (_, { _id }) => {
+          try {
+              // --find-- flash card by id
+              const flashCard = await FlashCards.findById(_id);
+              // if no flash card found throw error
+              if (!flashCard) {
+                  throw new Error("No flash card found");
+              }
+              // --delete-- flash card
+              await FlashCards.findByIdAndDelete(_id);
+              // return deleted flash card to confirm
+              return flashCard;
+          }catch (err) {
+              console.log(err);
+              throw err;
+          }
+      },
     // add flashcards to user
     addFlashCardToUser: async (_, { userId, flashcards }) => {
         try {

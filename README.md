@@ -2,7 +2,7 @@
 
 ## graphql
 query = viewFriends
-mutation = updateFlashCard, deleteFlashCard, addFriend, updateFriend, deleteFriend
+mutation = deleteFlashCard, addFriend, updateFriend, deleteFriend
 
 ## backend
 express

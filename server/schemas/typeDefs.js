@@ -38,6 +38,8 @@ const typeDefs = gql`
         updateFlashCard(_id: ID, frontInput: String, backInput: String, category: ID, userId: ID): FlashCards
 
         deleteUser(_id: ID): User
+
+        deleteFlashCard(_id: ID): FlashCards
   
         addFlashCard(frontInput: String!, backInput: String!, category: ID, userId: ID): FlashCards
 
