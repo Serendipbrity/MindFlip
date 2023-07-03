@@ -1,7 +1,8 @@
-
-import './App.css';
-import { ApolloClient, InMemoryCache, ApolloProvider, useQuery, gql } from '@apollo/client';
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import FlashCards from './components/FlashCards';
+import Home from './components/Home';
+import Login from './components/Login'; 
 
 const client = new ApolloClient({
   uri: '/graphql',
@@ -11,8 +12,14 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-       <div className="App">
-        <FlashCards />
+       <div data-theme="mytheme">
+       <Router>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/flashcards" element={<FlashCards />} />
+            <Route path="/login" element={<Login />} />
+          </Routes>
+      </Router>
       </div>
    </ApolloProvider>
   );
