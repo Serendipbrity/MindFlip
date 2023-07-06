@@ -1,4 +1,5 @@
 module.exports = {
+  
   theme: {
     extend: {
       colors: {
@@ -11,6 +12,7 @@ module.exports = {
           'primary': '#EE9B00',
         },
       },
+      important: true,
     },
   },
   variants: {},

@@ -4,15 +4,15 @@
 @tailwind themes;
 
 :root {
-    --lightestblue: rgb(142, 202, 230);
-    --lightblue: rgb(33, 158, 188);
-    --darkblue: rgb(2, 48, 71);
+    --lightestBlue: rgb(142, 202, 230);
+    --lightBlue: rgb(33, 158, 188);
+    --darkBlue: rgb(2, 48, 71);
     --lightOrange: rgb(255, 183, 3);
     --darkOrange: rgb(251, 133, 0);
     --text-color: white;
 }
 
-.hero {
+.border {
     border: solid 2px var(--lightOrange);
     padding: 8%;
 }
@@ -32,24 +32,36 @@
     color:rgba(250, 247, 247, 0.8);
 }
 
+/* sign up / sign in / get started btn's */
 .btn {
     border-color: var(--lightOrange);
     background-color: var(--darkOrange);
     /* background: linear-gradient(to right, var(--darkOrange), var(--lightOrange)); */
 }
+/* when hovering change button styling */
 .btn:hover {
     border-color: var(--lightOrange);
     background: linear-gradient(to right, var(--lightOrange), var(--darkOrange));
 }
 
-/* .btnLinks {
-    color: var(--darkOrange);
-} */
-
+/* open drawer links - change color when hovering */
 .btnLinks:hover {
     color: var(--lightOrange);
 }
 
+/* change background color of sing up / sign in input areas */
+.inputSingupSignIn {
+    background-color: rgb(30, 35, 42) !important;
+    /* text color white */
+    color: white;
+}
+
+/* add border on each input area for sign up / sing in when clicking */
+.inputSingupSignIn:focus {
+    border: var(--lightBlue) solid 2px !important;
+}
+
+/* open drawer links */
 li {
     margin: 3%;
     padding: 3%;

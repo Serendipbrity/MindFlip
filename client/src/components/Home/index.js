@@ -1,24 +1,27 @@
-// import {
-//   VIEW_USERS,
-//   VIEW_USER,
-//   VIEW_FLASHCARDS,
-//   VIEW_FLASHCARD,
-// } from "../../utils/queries";
-// import { useQuery } from "@apollo/client";
-import {Link} from "react-router-dom";
-import nasa from "../../assets/img/lightNasa.jpg";
-import mesh from "../../assets/img/mesh-gradient.png"
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import mesh from '../../assets/img/mesh-gradient.png';
 
 const Home = () => {
+  const [drawerOpen, setDrawerOpen] = useState(false);
+
+  const toggleDrawer = () => setDrawerOpen(!drawerOpen);
+
   return (
     <div
-      className="hero min-h-screen"
+      className="hero min-h-screen border"
       style={{ backgroundImage: `url(${mesh})` }}
     >
       <div className="hero-overlay bg-opacity-10"></div>
       <div className="hero-content text-center text-neutral-content">
         <div className="max-w-md">
-          <h1 className="mb-5 text-5xl font-bold text-white title">MindFlip</h1>
+          <label
+            onClick={toggleDrawer}
+            className="text-5xl font-bold text-white title drawer-button"
+            style={{ cursor: 'pointer' }}
+          >
+            <h1 className="mb-5">MindFlip</h1>
+          </label>
           <p className="mb-5 text-white text-opacity-7 homeText">
             Welcome to MindFlip, the flashcard app designed to make learning
             more efficient and enjoyable!
@@ -30,32 +33,30 @@ const Home = () => {
             time.
           </p>
           <div className="drawer">
-            <input id="my-drawer" type="checkbox" className="drawer-toggle" />
+            <input id="my-drawer" type="checkbox" className="drawer-toggle" checked={drawerOpen} onChange={toggleDrawer} />
             <div className="drawer-content">
-              {/* Page content here */}
               <label
-  htmlFor="my-drawer"
-  className="btn drawer-button text-white bg-opacity-20"
->
-  Get Started
-</label>
-
+                onClick={toggleDrawer}
+                className="btn drawer-button text-white bg-opacity-20"
+                style={{ cursor: 'pointer' }}
+              >
+                Get Started
+              </label>
             </div>
             <div className="drawer-side">
               <label htmlFor="my-drawer" className="drawer-overlay"></label>
               <ul className="menu p-4 w-80 h-full bg-base-200 text-base-content">
-                {/* Sidebar content here */}
                 <li>
-                <Link to="/login">Login</Link>
+                  <Link to="/login">Login</Link>
                 </li>
                 <li>
-                  <a>Sign Up</a>
+                  <Link to="/signup">Register</Link>
                 </li>
                 <li>
-                  <a>Features</a>
+                  <Link to="/features">Features</Link>
                 </li>
                 <li>
-                  <a>Community</a>
+                  <Link to="/community">Community</Link>
                 </li>
               </ul>
             </div>
