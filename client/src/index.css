@@ -18,7 +18,14 @@
 }
 
 .title {
-    color: var(--darkOrange);
+    color: var(--lightOrange);
+    text-shadow: -.5px 0 white, 0 .5px white, .5px 0 white, 0 -.5px white;
+}
+
+#signUp {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .homeText{
@@ -33,4 +40,18 @@
 .btn:hover {
     border-color: var(--lightOrange);
     background: linear-gradient(to right, var(--lightOrange), var(--darkOrange));
+}
+
+/* .btnLinks {
+    color: var(--darkOrange);
+} */
+
+.btnLinks:hover {
+    color: var(--lightOrange);
+}
+
+li {
+    margin: 3%;
+    padding: 3%;
+    font-size: 20px;
 }
