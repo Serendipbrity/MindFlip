@@ -1,14 +1,5 @@
 @import url("./index.css");
 
-/* MindFlip title */
-.title {
-    color: var(--lightOrange);
-    text-shadow: -.5px 0 white, 0 .5px white, .5px 0 white, 0 -.5px white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 /* the info text */
 .homeText{
     color:rgba(250, 247, 247, 0.8);

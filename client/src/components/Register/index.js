@@ -1,7 +1,7 @@
 import "../../css/signupsignin.css";
 import Nav from "../Nav";
 
-const SignUp = ({drawerOpen, toggleDrawer}) => {
+const Register = ({drawerOpen, toggleDrawer}) => {
   return (
       <div className="border flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         {/* ----- title and sub header ------- */}
@@ -117,4 +117,4 @@ const SignUp = ({drawerOpen, toggleDrawer}) => {
   );
 };
 
-export default SignUp;
+export default Register;
