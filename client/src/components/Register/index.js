@@ -1,4 +1,4 @@
-import "../../css/signupsignin.css";
+import "../../css/signinRegister.css";
 import Nav from "../Nav";
 
 const Register = ({drawerOpen, toggleDrawer}) => {
@@ -52,7 +52,7 @@ const Register = ({drawerOpen, toggleDrawer}) => {
                   name="email"
                   type="email"
                   required
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6 inputSingupSignIn"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6 inputSigninRegister"
                 />
               </div>
             </div>
@@ -74,7 +74,7 @@ const Register = ({drawerOpen, toggleDrawer}) => {
                   name="password"
                   type="password"
                   required
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 inputSingupSignIn"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 inputSigninRegister"
                 />
               </div>
             </div>
@@ -96,7 +96,7 @@ const Register = ({drawerOpen, toggleDrawer}) => {
                   name="confirm-password"
                   type="password"
                   required
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 inputSingupSignIn"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 inputSigninRegister"
                 />
               </div>
             </div>

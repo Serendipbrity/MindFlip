@@ -1,4 +1,4 @@
-import "../../css/signupsignin.css";
+import "../../css/signinRegister.css";
 import Nav from "../Nav";
 
 const Login = ({ drawerOpen, toggleDrawer }) => {
@@ -50,7 +50,7 @@ const Login = ({ drawerOpen, toggleDrawer }) => {
                   type="email"
                   autoComplete="email"
                   required
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6 inputSingupSignIn"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6 inputSigninRegister"
                 />
               </div>
             </div>
@@ -77,7 +77,7 @@ const Login = ({ drawerOpen, toggleDrawer }) => {
                   type="password"
                   autoComplete="current-password"
                   required
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6 inputSingupSignIn"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6 inputSigninRegister"
                 />
               </div>
             </div>

@@ -18,14 +18,14 @@
 }
 
 /* change background color of sing up / sign in input areas */
-.inputSingupSignIn {
+.inputSigninRegister {
     background-color: rgb(30, 35, 42) !important;
     /* text color white */
     color: white;
 }
 
 /* add border on each input area for sign up / sing in when clicking */
-.inputSingupSignIn:focus {
+.inputSigninRegister:focus {
     border: var(--lightBlue) solid 2px !important;
 }
 
