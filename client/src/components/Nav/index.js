@@ -20,6 +20,9 @@ const Nav = ({ drawerOpen }) => {
           </li>
           <li>
             <Link to="/register" className='btnLinks'>Register</Link>
+        </li>
+        <li>
+            <Link to="/stats" className='btnLinks'>Stats</Link>
           </li>
           <li>
             <Link to="/features" className='btnLinks'>Features</Link>

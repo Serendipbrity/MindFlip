@@ -1,21 +1,9 @@
-@import url("./index.css");
 
 /* the info text */
 .homeText{
     color:rgba(250, 247, 247, 0.8);
 }
 
-/* sign up / sign in / get started btn's */
-.btn {
-    border-color: var(--lightOrange);
-    background-color: var(--darkOrange);
-    /* background: linear-gradient(to right, var(--darkOrange), var(--lightOrange)); */
-}
-/* when hovering change button styling */
-.btn:hover {
-    border-color: var(--lightOrange);
-    background: linear-gradient(to right, var(--lightOrange), var(--darkOrange));
-}
 
 /* change background color of sing up / sign in input areas */
 .inputSigninRegister {
