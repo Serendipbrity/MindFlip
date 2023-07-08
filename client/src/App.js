@@ -4,6 +4,8 @@ import FlashCards from './components/FlashCards';
 import Home from './components/Home';
 import Login from './components/Login'; 
 import SignUp from './components/SignUp';
+import Dashboard from './components/Dashboard';
+import { useState } from 'react';
 
 const client = new ApolloClient({
   uri: '/graphql',
@@ -11,15 +13,18 @@ const client = new ApolloClient({
 });
 
 function App() {
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const toggleDrawer = () => setDrawerOpen(!drawerOpen);
   return (
     <ApolloProvider client={client}>
        <div data-theme="mytheme">
        <Router>
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Home drawerOpen={drawerOpen} toggleDrawer={toggleDrawer} />} />
             <Route path="/flashcards" element={<FlashCards />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
+            <Route path="/dashboard" element={<Dashboard />} />
           </Routes>
       </Router>
       </div>

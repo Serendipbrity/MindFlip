@@ -1,32 +1,15 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-@tailwind themes;
-
-:root {
-    --lightestBlue: rgb(142, 202, 230);
-    --lightBlue: rgb(33, 158, 188);
-    --darkBlue: rgb(2, 48, 71);
-    --lightOrange: rgb(255, 183, 3);
-    --darkOrange: rgb(251, 133, 0);
-    --text-color: white;
-}
-
-.border {
-    border: solid 2px var(--lightOrange);
-    padding: 8%;
-}
-
+/* MindFlip title */
 .title {
     color: var(--lightOrange);
     text-shadow: -.5px 0 white, 0 .5px white, .5px 0 white, 0 -.5px white;
 }
 
-#signUp {
+.signUpsignIn {
     display: flex;
     justify-content: center;
     align-items: center;
 }
+@import url("./index.css");
 
 .homeText{
     color:rgba(250, 247, 247, 0.8);

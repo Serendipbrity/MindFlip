@@ -1,25 +1,33 @@
-const Login = (props) => {
+import "../../css/signupsignin.css";
+import Nav from "../Nav";
+
+const Login = ({ drawerOpen, toggleDrawer }) => {
   return (
-    <>
-      {/*
-            This example requires updating your template:
-    
-            ```
-            <html class="h-full bg-white">
-            <body class="h-full">
-            ```
-          */}
       <div className=" border flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm ">
-        <label
-    htmlFor="my-drawer"
-    className="text-5xl font-bold text-white title drawer-button"
-    onClick={props.toggleDrawer}
-  >
-            <h1 className="mb-5" style={{ cursor: "pointer" }} id="signUp">
-              MindFlip
-            </h1>
-          </label>
+          {/* ---------- MindFlip Drawer Open------- */}
+          <div className="drawer">
+            <input
+              id="my-drawer"
+              type="checkbox"
+              className="drawer-toggle"
+              checked={drawerOpen}
+              onChange={toggleDrawer}
+            />
+            <div className="drawer-content">
+              <label
+                htmlFor="my-drawer"
+                className="text-5xl font-bold text-white title drawer-button"
+                onClick={toggleDrawer}
+              >
+                <h1 className="mb-5 signUpsignIn" style={{ cursor: "pointer" }}>
+                  MindFlip
+                </h1>
+              </label>
+            </div>
+            <Nav drawerOpen={drawerOpen} />
+          </div>
+          {/* -------------------------------- */}
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white">
             Sign in to your account
           </h2>
@@ -35,8 +43,8 @@ const Login = (props) => {
                 Email address
               </label>
               <div className="mt-2">
-                              <input
-                                  placeholder="Enter Email"
+                <input
+                  placeholder="Enter Email"
                   id="email"
                   name="email"
                   type="email"
@@ -62,8 +70,8 @@ const Login = (props) => {
                 </div>
               </div>
               <div className="mt-2">
-                              <input
-                                  placeholder="Enter Password"
+                <input
+                  placeholder="Enter Password"
                   id="password"
                   name="password"
                   type="password"
@@ -92,7 +100,6 @@ const Login = (props) => {
           </p>
         </div>
       </div>
-    </>
   );
 };
 

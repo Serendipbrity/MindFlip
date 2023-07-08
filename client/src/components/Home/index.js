@@ -1,12 +1,8 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import mesh from '../../assets/img/mesh-gradient.png';
+import mesh from "../../assets/img/mesh-gradient.png";
+import "../../css/index.css";
+import Nav from "../Nav";
 
-const Home = () => {
-  const [drawerOpen, setDrawerOpen] = useState(false);
-
-  const toggleDrawer = () => setDrawerOpen(!drawerOpen);
-
+const Home = ({ drawerOpen, toggleDrawer }) => {
   return (
     <div
       className="hero min-h-screen border"
@@ -18,7 +14,7 @@ const Home = () => {
           <label
             onClick={toggleDrawer}
             className="text-5xl font-bold text-white title drawer-button"
-            style={{ cursor: 'pointer' }}
+            style={{ cursor: "pointer" }}
           >
             <h1 className="mb-5">MindFlip</h1>
           </label>
@@ -32,35 +28,28 @@ const Home = () => {
             at optimal intervals, enhancing memory retention and reducing study
             time.
           </p>
+          {/* ---- Get Starter Drawer Open ----- */}
           <div className="drawer">
-            <input id="my-drawer" type="checkbox" className="drawer-toggle" checked={drawerOpen} onChange={toggleDrawer} />
+            <input
+              id="my-drawer"
+              type="checkbox"
+              className="drawer-toggle"
+              checked={drawerOpen}
+              onChange={toggleDrawer}
+            />
             <div className="drawer-content">
               <label
                 onClick={toggleDrawer}
                 className="btn drawer-button text-white bg-opacity-20"
-                style={{ cursor: 'pointer' }}
+                style={{ cursor: "pointer" }}
               >
                 Get Started
               </label>
             </div>
-            <div className="drawer-side">
-              <label htmlFor="my-drawer" className="drawer-overlay"></label>
-              <ul className="menu p-4 w-80 h-full bg-base-200 text-base-content">
-                <li>
-                  <Link to="/login">Login</Link>
-                </li>
-                <li>
-                  <Link to="/signup">Register</Link>
-                </li>
-                <li>
-                  <Link to="/features">Features</Link>
-                </li>
-                <li>
-                  <Link to="/community">Community</Link>
-                </li>
-              </ul>
-            </div>
+            <Nav drawerOpen={drawerOpen} />
           </div>
+
+          {/* --------------------------- */}
         </div>
       </div>
     </div>
