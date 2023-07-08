@@ -38,7 +38,7 @@
     text-align: center;
     /* keeps text in center of button */
     line-height: 0; 
-    background-color: var(--darkBlue);
+    background-color: var(--darkOrange);
     border: rgba(255, 255, 255, .4) solid 1px;
 }
 
