@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import "../../css/nav.css";
 
 const Nav = ({ drawerOpen }) => {
   return (
@@ -6,19 +7,19 @@ const Nav = ({ drawerOpen }) => {
         <label htmlFor="my-drawer" className="drawer-overlay"></label>
         <ul className="menu p-4 w-80 h-full bg-base-200 text-base-content">
           <li>
-            <Link to="/login">Login</Link>
+            <Link to="/login" className='btnLinks'>Login</Link>
           </li>
           <li>
-            <Link to="/signup">Register</Link>
+            <Link to="/signup" className='btnLinks'>Register</Link>
           </li>
           <li>
-            <Link to="/features">Features</Link>
+            <Link to="/features" className='btnLinks'>Features</Link>
           </li>
           <li>
-            <Link to="/community">Community</Link>
+            <Link to="/community" className='btnLinks'>Community</Link>
           </li>
           <li>
-            <Link to="/dashboard">Dashboard</Link>
+            <Link to="/dashboard" className='btnLinks'>Dashboard</Link>
           </li>
         </ul>
       </div>

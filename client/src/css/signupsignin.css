@@ -1,16 +1,15 @@
+@import url("./index.css");
+
 /* MindFlip title */
 .title {
     color: var(--lightOrange);
     text-shadow: -.5px 0 white, 0 .5px white, .5px 0 white, 0 -.5px white;
-}
-
-.signUpsignIn {
     display: flex;
     justify-content: center;
     align-items: center;
 }
-@import url("./index.css");
 
+/* the info text */
 .homeText{
     color:rgba(250, 247, 247, 0.8);
 }
@@ -27,11 +26,6 @@
     background: linear-gradient(to right, var(--lightOrange), var(--darkOrange));
 }
 
-/* open drawer links - change color when hovering */
-.btnLinks:hover {
-    color: var(--lightOrange);
-}
-
 /* change background color of sing up / sign in input areas */
 .inputSingupSignIn {
     background-color: rgb(30, 35, 42) !important;
@@ -44,9 +38,7 @@
     border: var(--lightBlue) solid 2px !important;
 }
 
-/* open drawer links */
-li {
-    margin: 3%;
-    padding: 3%;
-    font-size: 20px;
+/* forgot pw / register (same class as nav links) */
+.btnLinks:hover {
+    color: var(--lightOrange);
 }

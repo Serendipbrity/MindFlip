@@ -21,7 +21,7 @@ const SignUp = ({drawerOpen, toggleDrawer}) => {
                 className="text-5xl font-bold text-white title drawer-button"
                 onClick={toggleDrawer}
               >
-                <h1 className="mb-5 signUpsignIn" style={{ cursor: "pointer" }} >
+                <h1 className="mb-5 " style={{ cursor: "pointer" }} >
                   MindFlip
                 </h1>
               </label>

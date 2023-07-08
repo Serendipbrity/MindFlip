@@ -1,0 +1,13 @@
+@import url("./index.css");
+
+/* open drawer links */
+li {
+    margin: 3%;
+    padding: 3%;
+    font-size: 20px;
+}
+
+/* open drawer links - change color when hovering (same class as register's forgot pw / register links ) */
+.btnLinks:hover {
+    color: var(--lightOrange);
+}
