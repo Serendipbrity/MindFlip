@@ -47,6 +47,10 @@
    border: none;
 }
 
+.cardTitle {
+    font-size: 25px;;
+}
+
 /* titles with buttons and contents sections */
 .section {
     display: flex;
@@ -59,7 +63,7 @@
 /* "My Flash Cards and buttons */
 .myFlashCards {
     display:flex;
-    font-size: 30px;
+    font-size: 20px;
     color: white;
     padding: 2%;
 }
@@ -67,7 +71,7 @@
 /* "Categories" title and buttons */
 .categories {
     display:flex;
-    font-size: 30px;
+    font-size: 20px;
     color: white;
     padding: 2%;
 }
@@ -76,9 +80,15 @@
 .dashButtons {
     color: white;
     padding: 2%;
-    margin-top: 2%;
+    margin: 2%;
     background-color: var(--darkBlue);
     border: rgba(255, 255, 255,.4) solid 1px;
+    border-radius: 8px;
+}
+
+.dashButtons:hover {
+    border-color: var(--lightOrange);
+    background: linear-gradient(to right, var(--lightOrange), var(--darkOrange));
 }
 
 #dashContainer {

@@ -38,14 +38,14 @@ const Dashboard = ({ drawerOpen, toggleDrawer }) => {
             Begin Game
           </button>
           <div className="myFlashCards section">
-            My Flash Cards
-                      <button className="btn dashButtons">View All Flash Cards</button>
-                      <button className="btn dashButtons">Add Flash Card</button>
+            <div className="cardTitle"> My Flash Cards</div>
+            <button className="dashButtons">View All Flash Cards</button>
+            <button className="dashButtons">Add Flash Card</button>
           </div>
           <div className="categories section">
-            Categories
-                      <button className="btn dashButtons">View Categories</button>
-                      <button className="btn dashButtons">Add Category</button>
+            <div className="cardTitle"> Categories</div>
+            <button className="dashButtons">View Categories</button>
+            <button className="dashButtons">Add Category</button>
           </div>
         </div>
       </div>
