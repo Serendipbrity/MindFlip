@@ -1,7 +1,23 @@
 import mesh from "../../assets/img/mesh-gradient.png";
 import Nav from "../Nav";
+import React, { useState } from "react";
+import { useQuery, useMutation } from '@apollo/client';
+import FlashCards from "../FlashCards";
 import "../../css/dashboard.css";
+import {
+  VIEW_USERS,
+  VIEW_USER,
+  VIEW_FLASHCARDS,
+  VIEW_FLASHCARD,
+} from "../../utils/queries";
 const Dashboard = ({ drawerOpen, toggleDrawer }) => {
+  const [showFlashCards, setShowFlashCards] = useState(false);
+  const { loading, data } = useQuery(VIEW_FLASHCARDS);
+
+  const handleButtonClick = () => {
+    setShowFlashCards(true);
+  }
+
   return (
     <>
       {/* ---------- MindFlip Drawer Open------- */}
@@ -39,7 +55,7 @@ const Dashboard = ({ drawerOpen, toggleDrawer }) => {
           </button>
           <div className="myFlashCards section">
             <div className="cardTitle"> My Flash Cards</div>
-            <button className="dashButtons">View All Flash Cards</button>
+            <button onClick={handleButtonClick} className="dashButtons">View All Flash Cards</button>
             <button className="dashButtons">Add Flash Card</button>
           </div>
           <div className="categories section">
@@ -48,6 +64,7 @@ const Dashboard = ({ drawerOpen, toggleDrawer }) => {
             <button className="dashButtons">Add Category</button>
           </div>
         </div>
+        <FlashCards showFlashCards={showFlashCards} />
       </div>
     </>
   );

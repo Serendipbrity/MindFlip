@@ -1,19 +1,32 @@
+import { useState } from "react";
 import {
   VIEW_USERS,
   VIEW_USER,
   VIEW_FLASHCARDS,
   VIEW_FLASHCARD,
 } from "../../utils/queries";
+import "../../css/flashcards.css";
 import { useQuery } from "@apollo/client";
 
-const FlashCards = () => {
-
-    const { loading, data } = useQuery(VIEW_USER);
+const FlashCards = (props) => {
+  const { loading, data } = useQuery(VIEW_USER);
   // viewUsers is from the query / graphql
-    const user = data?.viewUser || {};
+  const user = data?.viewUser || {};
+  const { showFlashCards } = props;
+
+  // Declare a new state variable for flip action
+  const [isFlipped, setIsFlipped] = useState(false);
+
+  if (!showFlashCards) {
+    return null;
+  }
+
+  // Function to handle flip action
+  const handleFlip = () => {
+    setIsFlipped(!isFlipped);
+  };
   return (
     <div>
-      <h1>Dashboard</h1>
       {/* if loading data */}
       {loading ? (
         //   display loading
@@ -22,18 +35,21 @@ const FlashCards = () => {
         //   otherwise
         <div>
           {/* map over users and  */}
-                       {/* map over users and  */}
-          {user.flashcards.map((flashcard) => {
+          {user.flashcards.map((flashcard, index) => {
             //   display each user in a div
             return (
-                <div key={flashcard._id}>
-                    <h2>Welcome, {user.username}!</h2>
-                    <h3>My Flash Cards</h3>
-                    <h4>Front:</h4> 
-                    <div> {flashcard.frontInput}</div>
-                    <h4>Back:</h4>
-                    <div> {flashcard.backInput}</div>
-                {/* {user.flashcards.backInput} */}
+              <div className="scene" key={index}>
+                <div
+                  className={`card ${isFlipped ? "is-flipped" : ""}`}
+                  onClick={handleFlip}
+                >
+                  <div className="card__face card__face--front">
+                    {flashcard.frontInput}
+                  </div>
+                  <div className="card__face card__face--back">
+                    {flashcard.backInput}
+                  </div>
+                </div>
               </div>
             );
           })}
