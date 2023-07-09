@@ -17,6 +17,7 @@ const client = new ApolloClient({
 function App() {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const toggleDrawer = () => setDrawerOpen(!drawerOpen);
+  
   return (
     <ApolloProvider client={client}>
        <div data-theme="mytheme">

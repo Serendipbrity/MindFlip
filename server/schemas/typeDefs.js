@@ -24,6 +24,11 @@ const typeDefs = gql`
         userId: ID
     }
 
+    type AuthData {
+        token: String!
+        user: User
+      }
+
     type Query {
         viewUsers: [User]
         viewUser: User
@@ -32,6 +37,8 @@ const typeDefs = gql`
     }
     type Mutation {
         addUser(username: String!, email: String!, password: String!): User
+
+        login(email: String!, password: String!): AuthData
 
         updateUser(_id:ID, username: String, email: String, password: String, flashcards:ID): User
 

@@ -4,7 +4,7 @@
   "private": true,
   "proxy": "http://localhost:3001",
   "dependencies": {
-    "@apollo/client": "^3.7.16",
+    "@apollo/client": "^3.7.17",
     "@tailwindcss/forms": "^0.5.3",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -12,6 +12,8 @@
     "autoprefixer": "^10.4.14",
     "daisyui": "^3.1.7",
     "graphql": "^16.7.1",
+    "jsonwebtoken": "^9.0.1",
+    "jwt-decode": "^3.1.2",
     "postcss": "^8.4.24",
     "postcss-cli": "^10.1.0",
     "react": "^18.2.0",

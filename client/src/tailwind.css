@@ -871,8 +871,8 @@ select {
   }
 }
 @tailwind themes;
-/* @import url("./css/dashboard.css"); */
 
+/* color scheme */
 :root {
     --lightestBlue: rgb(142, 202, 230);
     --lightBlue: rgb(33, 158, 188);
@@ -882,8 +882,36 @@ select {
     --text-color: white;
 }
 
+/* orange border around whole window */
 .border {
     border: solid 2px var(--lightOrange);
     padding: 8%;
+    min-height: 100vh;
+    width: 100vw;
+}
+
+/* MindFlip title */
+.title {
+    color: var(--darkOrange);
+    text-shadow: -.5px 0 white, 0 .5px white, .5px 0 white, 0 -.5px white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.title:hover {
+    text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+}
+
+/* sign up, sign in, get started, add flash card btn's */
+.btn {
+    border-color: var(--lightOrange);
+    background-color: var(--darkOrange);
+    /* background: linear-gradient(to right, var(--darkOrange), var(--lightOrange)); */
+}
+/* when hovering change button styling */
+.btn:hover {
+    border-color: var(--lightOrange);
+    background: linear-gradient(to right, var(--lightOrange), var(--darkOrange));
 }
 

@@ -1,7 +1,58 @@
+import { useState, useEffect } from 'react';
 import "../../css/signinRegister.css";
+import { gql, useMutation } from '@apollo/client';
 import Nav from "../Nav";
+import { LOGIN_USER } from '../../utils/mutations';
+
+import Auth from '../../utils/auth';
 
 const Login = ({ drawerOpen, toggleDrawer }) => {
+  const [userFormData, setUserFormData] = useState({ email: '', password: '' });
+  const [validated] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+
+  const [login, { error }] = useMutation(LOGIN_USER);
+
+  useEffect(() => {
+    if (error) {
+      setShowAlert(true);
+    } else {
+      setShowAlert(false);
+    }
+  }, [error]);
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setUserFormData({ ...userFormData, [name]: value });
+  };
+
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    try {
+      const { data } = await login({
+        variables: { ...userFormData },
+      });
+
+      console.log(data);
+      Auth.login(data.login.token);
+    } catch (e) {
+      console.error(e);
+    }
+
+    // clear form values
+    setUserFormData({
+      email: '',
+      password: '',
+    });
+  };
+
   return (
       <div className=" border flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm ">
@@ -34,7 +85,7 @@ const Login = ({ drawerOpen, toggleDrawer }) => {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6" action="#" method="POST">
+          <form className="space-y-6" action="#" method="POST" onSubmit={handleFormSubmit}>
             <div>
               <label
                 htmlFor="email"
@@ -50,7 +101,9 @@ const Login = ({ drawerOpen, toggleDrawer }) => {
                   type="email"
                   autoComplete="email"
                   required
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6 inputSigninRegister"
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6 inputSigninRegister"
+                onChange={handleInputChange}
+                  value={userFormData.email}
                 />
               </div>
             </div>
@@ -77,7 +130,10 @@ const Login = ({ drawerOpen, toggleDrawer }) => {
                   type="password"
                   autoComplete="current-password"
                   required
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6 inputSigninRegister"
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6 inputSigninRegister"
+                onChange={handleInputChange}
+                  value={userFormData.password}
+
                 />
               </div>
             </div>

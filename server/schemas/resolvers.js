@@ -1,4 +1,5 @@
 const { User, FlashCards } = require("../models");
+const bcrypt = require("bcrypt");
 
 const resolvers = {
   Query: {
@@ -55,9 +56,27 @@ const resolvers = {
         throw new Error("Failed to create flash card");
       }
     },
-    addUser: async (_, args) => {
-      const user = await User.create(args);
-      return user;
+    // register new user
+      addUser: async (_, args) => {
+        console.log(args); // to check if the arguments are received correctly
+        const user = await User.create(args);
+        console.log(user); // to check if the user is being created
+        return user;
+    },
+    // login user
+    login: async (_, { email, password }) => {
+      const user = await User.findOne({ email });
+      if (!user) {
+        throw new Error('No user with that email');
+      }
+      const isValid = await bcrypt.compare(password, user.password);
+      if (!isValid) {
+        throw new Error('Incorrect password');
+      }
+      return {
+        token: user.generateJWT(),
+        user,
+      };
     },
     // update a user
       updateUser: async (_, args) => {
