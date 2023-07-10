@@ -7,7 +7,10 @@ import Register from './components/Register';
 import Dashboard from './components/Dashboard';
 import Stats from './components/Stats';
 import Features from './components/Features';
+import Error from './components/Error';
 import { useState } from 'react';
+
+import Auth from './utils/auth'; 
 
 const client = new ApolloClient({
   uri: '/graphql',
@@ -29,7 +32,8 @@ function App() {
             <Route path="/features" element={<Features />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/dashboard" element={<Dashboard/>} />
+            <Route path="/error" element={<Error />} />
           </Routes>
       </Router>
       </div>

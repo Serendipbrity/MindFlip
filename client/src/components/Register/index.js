@@ -1,5 +1,6 @@
 import "../../css/signinRegister.css";
 import Nav from "../Nav";
+import { Link } from 'react-router-dom';
 
 const Register = ({drawerOpen, toggleDrawer}) => {
   return (
@@ -111,7 +112,13 @@ const Register = ({drawerOpen, toggleDrawer}) => {
               </button>
             </div>
             {/* ---------------------------- */}
-          </form>
+        </form>
+        <p className="mt-10 text-center text-sm text-gray-500">
+            Already a member?{" "}
+            <Link to="/login" className="text-white leading-6 btnLinks">
+              Login
+            </Link>
+          </p>
         </div>
       </div>
   );

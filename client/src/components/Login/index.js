@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import "../../css/signinRegister.css";
 import { gql, useMutation } from '@apollo/client';
+import { useNavigate } from 'react-router-dom';
 import Nav from "../Nav";
 import { LOGIN_USER } from '../../utils/mutations';
-
+import {Link} from 'react-router-dom';
 import Auth from '../../utils/auth';
 
 const Login = ({ drawerOpen, toggleDrawer }) => {
@@ -26,32 +27,26 @@ const Login = ({ drawerOpen, toggleDrawer }) => {
     setUserFormData({ ...userFormData, [name]: value });
   };
 
-  const handleFormSubmit = async (event) => {
+  const navigate = useNavigate();
+
+  const handleLoginSubmit = async event => {
     event.preventDefault();
-
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
-
+  
     try {
       const { data } = await login({
         variables: { ...userFormData },
       });
-
-      console.log(data);
-      Auth.login(data.login.token);
+  
+      if (data) {
+        Auth.login(data.login.token);
+        navigate("/dashboard"); // successful login, go to dashboard
+      } else {
+        navigate("/error"); // login failed, go to error
+      }
     } catch (e) {
-      console.error(e);
+      navigate("/error"); // any error during login, go to error
     }
-
-    // clear form values
-    setUserFormData({
-      email: '',
-      password: '',
-    });
-  };
+  }
 
   return (
       <div className=" border flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -85,7 +80,7 @@ const Login = ({ drawerOpen, toggleDrawer }) => {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6" action="#" method="POST" onSubmit={handleFormSubmit}>
+          <form className="space-y-6" action="#" method="POST" onSubmit={handleLoginSubmit}>
             <div>
               <label
                 htmlFor="email"
@@ -137,22 +132,19 @@ const Login = ({ drawerOpen, toggleDrawer }) => {
                 />
               </div>
             </div>
-
-            <div>
               <button
                 type="submit"
                 className="flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 btn"
               >
                 Sign in
               </button>
-            </div>
           </form>
 
           <p className="mt-10 text-center text-sm text-gray-500">
             Not a member?{" "}
-            <a href="#" className="text-white leading-6 btnLinks">
+            <Link to="/register" className="text-white leading-6 btnLinks">
               Register
-            </a>
+            </Link>
           </p>
         </div>
       </div>
