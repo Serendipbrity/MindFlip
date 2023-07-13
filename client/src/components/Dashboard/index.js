@@ -50,9 +50,10 @@ const Dashboard = ({ drawerOpen, toggleDrawer }) => {
         <div className="hero-overlay bg-opacity-10"></div>
         <div id="dashboardText">Dashboard</div>
         <div id="dashContainer">
-          <button className="btn section" id="begin">
+          <button className="btn section row" id="begin">
             Begin Game
           </button>
+          <div className="row">
           <div className="myFlashCards section">
             <div className="cardTitle"> My Flash Cards</div>
             <button onClick={handleButtonClick} className="dashButtons">View All Flash Cards</button>
@@ -62,6 +63,7 @@ const Dashboard = ({ drawerOpen, toggleDrawer }) => {
             <div className="cardTitle"> Categories</div>
             <button className="dashButtons">View Categories</button>
             <button className="dashButtons">Add Category</button>
+          </div>
           </div>
         </div>
         <FlashCards showFlashCards={showFlashCards} />

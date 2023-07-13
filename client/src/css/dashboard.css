@@ -28,10 +28,10 @@
 #begin {
     display: flex;           
     font-size: larger;
-    position: absolute;
+    /* position: absolute; */
     top: 15%;
     left: 15%;
-    width: 70%;
+    width: 100%;
     max-width: 100%;
     color: white;
     padding: 4%;
@@ -101,16 +101,16 @@
 }
 
 /* Media query for larger screens */
-@media screen and (min-width: 768px) {
+/* @media screen and (min-width: 768px) {
     #dashContainer {
-        flex-direction: row; /* Place the children side by side on large screens */
+        flex-direction: row; 
     }
 
     #begin {
         margin: 2%;
     }
     .myFlashCards, .categories {
-        width: 45%; /* Use 45% width value on larger screens so they do not overlap, adjust as necessary */
+        width: 45%; 
         height: 45%;
     }
-}
+} */

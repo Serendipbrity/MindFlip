@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react';
 import "../../css/signinRegister.css";
 import { gql, useMutation } from '@apollo/client';
-import { useNavigate } from 'react-router-dom';
 import Nav from "../Nav";
 import { LOGIN_USER } from '../../utils/mutations';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import Auth from '../../utils/auth';
 
 const Login = ({ drawerOpen, toggleDrawer }) => {
@@ -38,7 +37,7 @@ const Login = ({ drawerOpen, toggleDrawer }) => {
       });
   
       if (data) {
-        Auth.login(data.login.token);
+        await Auth.login(data.login.token); // wait for login to complete
         navigate("/dashboard"); // successful login, go to dashboard
       } else {
         navigate("/error"); // login failed, go to error
@@ -134,7 +133,8 @@ const Login = ({ drawerOpen, toggleDrawer }) => {
             </div>
               <button
                 type="submit"
-                className="flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 btn"
+            className="flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 btn"
+            onSubmit={handleLoginSubmit}
               >
                 Sign in
               </button>

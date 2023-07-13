@@ -7,6 +7,7 @@ const Nav = ({ drawerOpen }) => {
     event.preventDefault();
     Auth.logout();
   }
+  
 
   return (
     <div className={`drawer-side ${drawerOpen ? "open" : ""}`}>
