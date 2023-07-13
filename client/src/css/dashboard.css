@@ -101,16 +101,19 @@
 }
 
 /* Media query for larger screens */
-/* @media screen and (min-width: 768px) {
-    #dashContainer {
-        flex-direction: row; 
-    }
+@media screen and (min-width: 768px) {
 
-    #begin {
+    /* #begin {
         margin: 2%;
-    }
+    } */
     .myFlashCards, .categories {
-        width: 45%; 
-        height: 45%;
+        width: 48%; 
+        height: 48%;
+        display: inline-block;
+        margin:1%;
     }
-} */
+    .dashButtons{
+        display: block;
+        width: 100%;
+    }
+} 

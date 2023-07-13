@@ -1,7 +1,7 @@
 import mesh from "../../assets/img/mesh-gradient.png";
 import Nav from "../Nav";
 import React, { useState } from "react";
-import { useQuery, useMutation } from '@apollo/client';
+import { useQuery, useMutation } from "@apollo/client";
 import FlashCards from "../FlashCards";
 import "../../css/dashboard.css";
 import {
@@ -16,7 +16,7 @@ const Dashboard = ({ drawerOpen, toggleDrawer }) => {
 
   const handleButtonClick = () => {
     setShowFlashCards(true);
-  }
+  };
 
   return (
     <>
@@ -54,16 +54,18 @@ const Dashboard = ({ drawerOpen, toggleDrawer }) => {
             Begin Game
           </button>
           <div className="row">
-          <div className="myFlashCards section">
-            <div className="cardTitle"> My Flash Cards</div>
-            <button onClick={handleButtonClick} className="dashButtons">View All Flash Cards</button>
-            <button className="dashButtons">Add Flash Card</button>
-          </div>
-          <div className="categories section">
-            <div className="cardTitle"> Categories</div>
-            <button className="dashButtons">View Categories</button>
-            <button className="dashButtons">Add Category</button>
-          </div>
+            <div className="myFlashCards section">
+              <div className="cardTitle"> My Flash Cards</div>
+              <button onClick={handleButtonClick} className="dashButtons">
+                View All Flash Cards
+              </button>
+              <button className="dashButtons">Add Flash Card</button>
+            </div>
+            <div className="categories section">
+              <div className="cardTitle"> Categories</div>
+              <button className="dashButtons">View Categories</button>
+              <button className="dashButtons">Add Category</button>
+            </div>
           </div>
         </div>
         <FlashCards showFlashCards={showFlashCards} />
