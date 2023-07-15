@@ -1,57 +1,74 @@
-const { gql } = require('apollo-server-express');
+const { gql } = require("apollo-server-express");
 
 const typeDefs = gql`
-    type User {
-        _id: ID
-        username: String
-        email: String
-        password: String
-        flashcards: [FlashCards]
-        friends: [User]
-    }
+  type User {
+    _id: ID
+    username: String
+    email: String
+    password: String
+    flashcards: [FlashCards]
+    friends: [User]
+  }
 
-    type Category {
-        _id: ID
-        category: String
-        flashcards: [FlashCards]
-    }
+  type Category {
+    _id: ID
+    category: String
+    flashcards: [FlashCards]
+  }
 
-    type FlashCards {
-        _id: ID
-        frontInput: String
-        backInput: String
-        category: ID
-        userId: ID
-    }
+  type FlashCards {
+    _id: ID
+    frontInput: String
+    backInput: String
+    category: ID
+    userId: ID
+  }
 
-    type AuthData {
-        token: String!
-        user: User
-      }
+  type AuthData {
+    token: String!
+    user: User
+  }
 
-    type Query {
-        viewUsers: [User]
-        viewUser: User
-        viewFlashCards: [FlashCards]
-        viewFlashCard: FlashCards
-    }
-    type Mutation {
-        addUser(username: String!, email: String!, password: String!): User
+  type Query {
+    viewUsers: [User]
+    viewUser: User
+    viewFlashCards: [FlashCards]
+    viewFlashCard: FlashCards
+  }
+  type Mutation {
+    addUser(username: String!, email: String!, password: String!): User
 
-        login(email: String!, password: String!): AuthData
+    login(email: String!, password: String!): AuthData
 
-        updateUser(_id:ID, username: String, email: String, password: String, flashcards:ID): User
+    updateUser(
+      _id: ID
+      username: String
+      email: String
+      password: String
+      flashcards: ID
+    ): User
 
-        updateFlashCard(_id: ID, frontInput: String, backInput: String, category: ID, userId: ID): FlashCards
+    updateFlashCard(
+      _id: ID
+      frontInput: String
+      backInput: String
+      category: ID
+      userId: ID
+    ): FlashCards
 
-        deleteUser(_id: ID): User
+    deleteUser(_id: ID): User
 
-        deleteFlashCard(_id: ID): FlashCards
-  
-        addFlashCard(frontInput: String!, backInput: String!, category: ID, userId: ID): FlashCards
+    deleteFlashCard(_id: ID): FlashCards
 
-        addFlashCardToUser(userId: ID, flashcards: ID): User
-    }
+    addFlashCard(
+      frontInput: String!
+      backInput: String!
+      category: ID
+      userId: ID
+    ): FlashCards
+
+    addFlashCardToUser(userId: ID, flashcards: ID): User
+  }
 `;
 
 module.exports = typeDefs;

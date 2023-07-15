@@ -1,52 +1,56 @@
+/* entire flash card container -- needs to wrap .card */
 .scene {
-    width: 400px;
-    height: 200px;
-    perspective: 800px;
-  }
+  width: 400px;
+  height: 200px;
+  perspective: 800px;
+}
+/* specifcally the card container */
+.card {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%; /* take full width on small screens */
+  width: 100%;
+  height: 100%;
+  transition: transform 1s;
+  transform-style: preserve-3d;
+  display: flex;
+  /* same size as parent on small screens */
+  margin-bottom: 5%;
+}
 
-  .card {
-    display: flex;
-    flex-direction: column;
-    flex-basis: 100%; /* take full width on small screens */
-    width: 100%;
-    height: 100%;
-    position: relative;
-    transition: transform 1s;
-    transform-style: preserve-3d;
-    display: flex;
-    /* same size as parent on small screens */
-    margin-bottom: 5%;
-  }
+/* change cursor to pointer when hovering card */
+.card:hover {
+  cursor: pointer;
+}
 
-  .card:hover {
-    cursor: pointer;
-  }
+/* front and back text on cards */
+.card__face {
+  color: white;
+  display: flex;
+  padding: 25px;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  backface-visibility: hidden;
+  /* margin works for small screens */
+  margin-top: 75%;
+}
 
-  /* front and back text on cards */
-  .card__face {
-    color: white;
-    display: flex;
-    padding: 25px;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    backface-visibility: hidden;
-    /* margin works for small screens */
-    margin-top: 75%;
-  }
+/* front of card */
+.card__face--front {
+  background: var(--lightOrange);
+  font-size: 25px;
+}
 
-  .card__face--front {
-    background: var(--lightOrange);
-    font-size: 25px;
-  }
-  
-  .card__face--back {
-    background: var(--lightBlue);
-    transform: rotateY( 180deg );
-  }
+/* back of card */
+.card__face--back {
+  background: var(--lightBlue);
+  transform: rotateY(180deg);
+}
 
-  .card.is-flipped {
-    transform: rotateY(180deg);
-  }
+/* flip card */
+.card.is-flipped {
+  transform: rotateY(180deg);
+}

@@ -42,8 +42,11 @@
     border: rgba(255, 255, 255, .4) solid 1px;
 }
 
+/* when hovering begin button */
 #begin:hover {
+    /* make text bigger */
    font-size: 22px;
+   /* remove border */
    border: none;
 }
 
@@ -56,10 +59,10 @@
     border: rgba(255, 255, 255, .4) solid 2px;
 }
 
+/* My Flash Cards and Categories title */
 .cardTitle {
     font-size: 25px;;
 }
-
 
 /* "My Flash Cards and buttons */
 .myFlashCards {
@@ -87,11 +90,13 @@
     border-radius: 8px;
 }
 
+/* when hovering over dash buttons */
 .dashButtons:hover {
     border-color: var(--lightOrange);
     background: linear-gradient(to right, var(--lightOrange), var(--darkOrange));
 }
 
+/* everything under Dashboard */
 #dashContainer {
     display: flex;
     flex-direction: column; /* Stack the children on small screens */
@@ -102,10 +107,6 @@
 
 /* Media query for larger screens */
 @media screen and (min-width: 768px) {
-
-    /* #begin {
-        margin: 2%;
-    } */
     .myFlashCards, .categories {
         width: 48%; 
         height: 48%;

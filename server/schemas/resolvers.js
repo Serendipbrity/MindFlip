@@ -5,10 +5,10 @@ const resolvers = {
   Query: {
     // view all users
     viewUsers: async () => {
-          try {
+      try {
         //   find all users and populate with flashcards
-              const users = await User.find().populate("flashcards");
-          return users;
+        const users = await User.find().populate("flashcards");
+        return users;
       } catch (err) {
         console.log(err);
         throw new Error("No users found");
@@ -16,7 +16,7 @@ const resolvers = {
     },
     // view a single user
     viewUser: async (args) => {
-        try {
+      try {
         //   find ine user and populate with flashcards
         const user = await User.findOne({ args }).populate("flashcards");
         return user;
@@ -57,21 +57,21 @@ const resolvers = {
       }
     },
     // register new user
-      addUser: async (_, args) => {
-        console.log(args); // to check if the arguments are received correctly
-        const user = await User.create(args);
-        console.log(user); // to check if the user is being created
-        return user;
+    addUser: async (_, args) => {
+      console.log(args); // to check if the arguments are received correctly
+      const user = await User.create(args);
+      console.log(user); // to check if the user is being created
+      return user;
     },
     // login user
     login: async (_, { email, password }) => {
       const user = await User.findOne({ email });
       if (!user) {
-        throw new Error('No user with that email');
+        throw new Error("No user with that email");
       }
       const isValid = await bcrypt.compare(password, user.password);
       if (!isValid) {
-        throw new Error('Incorrect password');
+        throw new Error("Incorrect password");
       }
       return {
         token: user.generateJWT(),
@@ -79,94 +79,96 @@ const resolvers = {
       };
     },
     // update a user
-      updateUser: async (_, args) => {
+    updateUser: async (_, args) => {
       try {
-          const user = await User.
-            //   condition: first _id: is the key we are trying to match, second args._id: is the value we are trying to match
-              findOneAndUpdate({ _id: args._id },
-                //   data to update
-                  args, {
-                //   return updated data
-            new: true,
-              });
+        const user = await User
+          //   condition: first _id: is the key we are trying to match, second args._id: is the value we are trying to match
+          .findOneAndUpdate(
+            { _id: args._id },
+            //   data to update
+            args,
+            {
+              //   return updated data
+              new: true,
+            }
+          );
         return user;
       } catch {
         console.log(err);
         throw new Error("No user found");
       }
-      },
+    },
     //   update flash card
-      updateFlashCard: async (_, args) => { 
-        try {
-          const flashCard = await FlashCards.findOneAndUpdate(
-            { _id: args._id },
-            args,
-            { new: true }
-          );
-          return flashCard;
-        } catch (err) {
-          console.log(err);
-          throw new Error("No flash card found");
-        }
-      },
+    updateFlashCard: async (_, args) => {
+      try {
+        const flashCard = await FlashCards.findOneAndUpdate(
+          { _id: args._id },
+          args,
+          { new: true }
+        );
+        return flashCard;
+      } catch (err) {
+        console.log(err);
+        throw new Error("No flash card found");
+      }
+    },
     //   delete user
     deleteUser: async (_, { _id }) => {
-        try {
-            // --find-- user by id
-            const user = await User.findById(_id);
-            // if no user found throw error
-            if (!user) {
-                throw new Error("No user found");
-            }
-            // --delete-- user
-            await User.findByIdAndDelete(_id);
-            // return deleted user to confirm
-            return user;
-        } catch (err) {
-            console.log(err);
-            throw err;
+      try {
+        // --find-- user by id
+        const user = await User.findById(_id);
+        // if no user found throw error
+        if (!user) {
+          throw new Error("No user found");
         }
-      },
+        // --delete-- user
+        await User.findByIdAndDelete(_id);
+        // return deleted user to confirm
+        return user;
+      } catch (err) {
+        console.log(err);
+        throw err;
+      }
+    },
     //   delete flash card
-      deleteFlashCard: async (_, { _id }) => {
-          try {
-              // --find-- flash card by id
-              const flashCard = await FlashCards.findById(_id);
-              // if no flash card found throw error
-              if (!flashCard) {
-                  throw new Error("No flash card found");
-              }
-              // --delete-- flash card
-              await FlashCards.findByIdAndDelete(_id);
-              // return deleted flash card to confirm
-              return flashCard;
-          }catch (err) {
-              console.log(err);
-              throw err;
-          }
-      },
+    deleteFlashCard: async (_, { _id }) => {
+      try {
+        // --find-- flash card by id
+        const flashCard = await FlashCards.findById(_id);
+        // if no flash card found throw error
+        if (!flashCard) {
+          throw new Error("No flash card found");
+        }
+        // --delete-- flash card
+        await FlashCards.findByIdAndDelete(_id);
+        // return deleted flash card to confirm
+        return flashCard;
+      } catch (err) {
+        console.log(err);
+        throw err;
+      }
+    },
     // add flashcards to user
     addFlashCardToUser: async (_, { userId, flashcards }) => {
-        try {
-            // find user by userId and update with flashcards
-          const user = await User.findByIdAndUpdate(
-              userId,
-            // $addToSet so we don't add duplicates
-              { $addToSet: { flashcards: flashcards } },
-            // return updated data
-              { new: true }
-            // populate with flashcards
-          ).populate("flashcards");
-          if (!user) {
-            throw new Error('User not found');
-          }
-          return user;
-        } catch (err) {
-          console.log(err);
-          throw err;
+      try {
+        // find user by userId and update with flashcards
+        const user = await User.findByIdAndUpdate(
+          userId,
+          // $addToSet so we don't add duplicates
+          { $addToSet: { flashcards: flashcards } },
+          // return updated data
+          { new: true }
+          // populate with flashcards
+        ).populate("flashcards");
+        if (!user) {
+          throw new Error("User not found");
         }
+        return user;
+      } catch (err) {
+        console.log(err);
+        throw err;
       }
-      
+    },
   },
 };
 
