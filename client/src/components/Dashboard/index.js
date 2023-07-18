@@ -1,22 +1,66 @@
 import mesh from "../../assets/img/mesh-gradient.png";
 import Nav from "../Nav";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useQuery, useMutation } from "@apollo/client";
+import { ADD_FLASHCARD_TO_USER } from "../../utils/mutations";
 import FlashCards from "../FlashCards";
 import "../../css/dashboard.css";
+import Modal from 'react-modal';
 import {
-  VIEW_USERS,
-  VIEW_USER,
   VIEW_FLASHCARDS,
   VIEW_FLASHCARD,
 } from "../../utils/queries";
+
+
 const Dashboard = ({ drawerOpen, toggleDrawer }) => {
+  Modal.setAppElement('#root')
+  const userId = localStorage.getItem('userId');
+
   const [showFlashCards, setShowFlashCards] = useState(false);
   const { loading, data } = useQuery(VIEW_FLASHCARDS);
 
   const handleButtonClick = () => {
     setShowFlashCards(true);
   };
+
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [flashCardInput, setFlashCardInput] = useState({frontInput: '', backInput: ''});
+  
+  const [addFlashCardToUser, { error }] = useMutation(ADD_FLASHCARD_TO_USER);
+
+    // handle change of flash card inputs
+    const handleInputChange = (event) => {
+      const { name, value } = event.target;
+      setFlashCardInput(prevState => ({
+          ...prevState,
+          [name]: value,
+      }));
+  }
+
+  const handleAddFlashCard = async () => {
+    const { frontInput, backInput } = flashCardInput; // Assuming you have a form controlling these values
+    
+    try {
+
+      const { data } = await addFlashCardToUser({
+        variables: {
+          userId,
+          frontInput,
+          backInput,
+        },
+      });
+  
+      // TODO: Do something with the result, e.g. add the new flashcard to local state
+      
+    } catch (err) {
+      console.error(err);
+    }
+
+     // close modal and reset inputs after successful submission
+     setModalIsOpen(false);
+     setFlashCardInput({frontInput: '', backInput: ''});
+  };
+
 
   return (
     <>
@@ -59,7 +103,35 @@ const Dashboard = ({ drawerOpen, toggleDrawer }) => {
               <button onClick={handleButtonClick} className="dashButtons">
                 View All Flash Cards
               </button>
-              <button className="dashButtons">Add Flash Card</button>
+              
+            <button onClick={() => setModalIsOpen(true)} className="dashButtons">Add Flash Card</button>
+            <div>
+            <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
+                <h2>Add Flash Card</h2>
+                <form>
+                    <label>
+                        Front:
+                        <input 
+                            type="text" 
+                            name="frontInput" 
+                            value={flashCardInput.frontInput}
+                            onChange={handleInputChange}
+                        />
+                    </label>
+                    <label>
+                        Back:
+                        <input 
+                            type="text" 
+                            name="backInput" 
+                            value={flashCardInput.backInput}
+                            onChange={handleInputChange}
+                        />
+                    </label>
+                    <button type="button" onClick={handleAddFlashCard}>Submit</button>
+                </form>
+                <button onClick={() => setModalIsOpen(false)}>Close</button>
+            </Modal>
+        </div>
             </div>
             <div className="categories section">
               <div className="cardTitle"> Categories</div>

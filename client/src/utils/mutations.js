@@ -38,3 +38,19 @@ export const REGISTER_USER = gql`
   }
 `;
 
+export const ADD_FLASHCARD_TO_USER = gql`
+  mutation AddFlashCardToUser($userId: ID!, $flashcards: ID!, $frontInput: String!, $backInput: String!) {
+    addFlashCardToUser(userId: $userId, flashcards: $flashcards, frontInput: $frontInput, backInput: $backInput) {
+      _id
+      username
+      email
+      flashcards {
+        _id
+        frontInput
+        backInput
+      }
+    }
+  }
+`;
+
+

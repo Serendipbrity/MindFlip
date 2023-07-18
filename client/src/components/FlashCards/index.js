@@ -25,6 +25,7 @@ const FlashCards = (props) => {
   const handleFlip = () => {
     setIsFlipped(!isFlipped);
   };
+  
   return (
     <div>
       {/* if loading data */}
@@ -35,10 +36,10 @@ const FlashCards = (props) => {
         //   otherwise
         <div>
           {/* map over users and  */}
-          {user.flashcards.map((flashcard, index) => {
+          {user.flashcards.map((flashcard) => {
             //   display each user in a div
             return (
-              <div className="scene" key={index}>
+              <div className="scene" key={flashcard._id}>
                 <div
                   className={`card ${isFlipped ? "is-flipped" : ""}`}
                   onClick={handleFlip}
