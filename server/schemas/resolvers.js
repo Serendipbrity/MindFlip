@@ -1,5 +1,6 @@
 const { User, FlashCards } = require("../models");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 const resolvers = {
   Query: {
@@ -47,9 +48,22 @@ const resolvers = {
     },
   },
   Mutation: {
-    addFlashCard: async (_, args) => {
+    addFlashCard: async (_, args, context) => {
       try {
-        const flashCard = await FlashCards.create(args);
+        // decode JWT from the request header
+        const authHeader = context.req.headers.authorization;
+        if (!authHeader) throw new Error("No token provided");
+        const token = authHeader.split(" ")[1];
+
+        const { id } = jwt.verify(token, "secret");
+        // Create the flashcard and associate with the user's ID
+        const flashCard = await FlashCards.create({ ...args, userId: id });
+
+        // Add the flashcard to the user
+        await User.findByIdAndUpdate(id, {
+          $push: { flashcards: flashCard._id },
+        });
+
         return flashCard;
       } catch (err) {
         console.log(err);
@@ -149,20 +163,24 @@ const resolvers = {
       }
     },
     // add flashcards to user
-    addFlashCardToUser: async (_, { userId, flashcards }) => {
+    addFlashCardToUser: async (_, { userId, frontInput, backInput }) => {
       try {
-        // find user by userId and update with flashcards
+        // Create the flashcard
+        const flashCard = await FlashCards.create({ frontInput, backInput, userId });
+    
+        // Add the flashcard to the user
         const user = await User.findByIdAndUpdate(
           userId,
-          // $addToSet so we don't add duplicates
-          { $addToSet: { flashcards: flashcards } },
+          // $addToSet to add the flashcard's ID to the user's flashcards array
+          { $addToSet: { flashcards: flashCard._id } },
           // return updated data
           { new: true }
-          // populate with flashcards
         ).populate("flashcards");
+    
         if (!user) {
           throw new Error("User not found");
         }
+    
         return user;
       } catch (err) {
         console.log(err);

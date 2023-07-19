@@ -14,7 +14,16 @@ import {
 
 const Dashboard = ({ drawerOpen, toggleDrawer }) => {
   Modal.setAppElement('#root')
-  const userId = localStorage.getItem('userId');
+  const idToken = localStorage.getItem('id_token');
+
+// Decode the JWT to get its payload
+const base64Url = idToken.split('.')[1];
+const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+const payload = JSON.parse(window.atob(base64));
+
+// Now get the userId
+const userId = payload.id;
+
 
   const [showFlashCards, setShowFlashCards] = useState(false);
   const { loading, data } = useQuery(VIEW_FLASHCARDS);
@@ -41,7 +50,6 @@ const Dashboard = ({ drawerOpen, toggleDrawer }) => {
     const { frontInput, backInput } = flashCardInput; // Assuming you have a form controlling these values
     
     try {
-
       const { data } = await addFlashCardToUser({
         variables: {
           userId,
@@ -49,12 +57,20 @@ const Dashboard = ({ drawerOpen, toggleDrawer }) => {
           backInput,
         },
       });
-  
-      // TODO: Do something with the result, e.g. add the new flashcard to local state
-      
     } catch (err) {
-      console.error(err);
+      if (err.graphQLErrors) {
+        err.graphQLErrors.map(({ message, locations, path }) =>
+          console.log(
+            `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
+          )
+        );
+      }
+    
+      if (err.networkError) {
+        console.log(`[Network error]: ${err.networkError}`);
+      }
     }
+    
 
      // close modal and reset inputs after successful submission
      setModalIsOpen(false);

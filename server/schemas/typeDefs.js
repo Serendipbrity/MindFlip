@@ -67,7 +67,9 @@ const typeDefs = gql`
       userId: ID
     ): FlashCards
 
-    addFlashCardToUser(userId: ID, flashcards: ID): User
+    addFlashCardToUser(userId: ID!, frontInput: String!, backInput: String!): User
+
+
   }
 `;
 
