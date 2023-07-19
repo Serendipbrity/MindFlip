@@ -1,21 +1,25 @@
+.flashcards-container {
+  display: flex;
+  display: inline-block;
+  /* same size as parent on small screens */
+  margin: 3%;
+
+}
 /* entire flash card container -- needs to wrap .card */
 .scene {
-  width: 400px;
+  width: 300px;
   height: 200px;
   perspective: 800px;
 }
 /* specifcally the card container */
 .card {
   display: flex;
-  flex-direction: column;
   flex-basis: 100%; /* take full width on small screens */
   width: 100%;
   height: 100%;
   transition: transform 1s;
   transform-style: preserve-3d;
-  display: flex;
-  /* same size as parent on small screens */
-  margin-bottom: 5%;
+
 }
 
 /* change cursor to pointer when hovering card */
@@ -35,7 +39,6 @@
   width: 100%;
   backface-visibility: hidden;
   /* margin works for small screens */
-  margin-top: 75%;
 }
 
 /* front of card */

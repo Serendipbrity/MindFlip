@@ -1,29 +1,28 @@
 import { useState } from "react";
-import {
-  VIEW_USERS,
-  VIEW_USER,
-  VIEW_FLASHCARDS,
-  VIEW_FLASHCARD,
-} from "../../utils/queries";
+import { VIEW_FLASHCARDS } from "../../utils/queries";
 import "../../css/flashcards.css";
 import { useQuery } from "@apollo/client";
 
 const FlashCards = (props) => {
-  const { loading, data } = useQuery(VIEW_USER);
-  // viewUsers is from the query / graphql
-  const user = data?.viewUser || {};
+  
+  const { loading, data } = useQuery(VIEW_FLASHCARDS);
+  // viewFlashCards is from the query / graphql
+  const flashcards = data?.viewFlashCards || [];
   const { showFlashCards } = props;
 
   // Declare a new state variable for flip action
-  const [isFlipped, setIsFlipped] = useState(false);
+  const [isFlipped, setIsFlipped] = useState({});
 
   if (!showFlashCards) {
     return null;
   }
 
   // Function to handle flip action
-  const handleFlip = () => {
-    setIsFlipped(!isFlipped);
+  const handleFlip = (id) => {
+    setIsFlipped(prevState => ({
+      ...prevState,
+      [id]: !prevState[id],
+    }));
   };
   
   return (
@@ -35,14 +34,15 @@ const FlashCards = (props) => {
       ) : (
         //   otherwise
         <div>
-          {/* map over users and  */}
-          {user.flashcards.map((flashcard) => {
-            //   display each user in a div
+          {/* map over flashcards and  */}
+          {flashcards.map((flashcard) => {
+            //   display each flashcard in a div
             return (
+              <div className="flashcards-container">
               <div className="scene" key={flashcard._id}>
                 <div
-                  className={`card ${isFlipped ? "is-flipped" : ""}`}
-                  onClick={handleFlip}
+                  className={`card ${isFlipped[flashcard._id] ? "is-flipped" : ""}`}
+                  onClick={() => handleFlip(flashcard._id)}
                 >
                   <div className="card__face card__face--front">
                     {flashcard.frontInput}
@@ -51,7 +51,8 @@ const FlashCards = (props) => {
                     {flashcard.backInput}
                   </div>
                 </div>
-              </div>
+                </div>
+                </div>
             );
           })}
         </div>
