@@ -55,13 +55,13 @@
 
 /* front of card */
 .card__face--front {
-  background: var(--lightOrange);
+  background: linear-gradient(to right, var(--lightOrange), var(--darkOrange));
   font-size: 25px;
 }
 
 /* back of card */
 .card__face--back {
-  background: var(--lightBlue);
+  background: linear-gradient(to right, var(--darkBlue), var(--lightBlue));
   transform: rotateY(180deg);
 }
 

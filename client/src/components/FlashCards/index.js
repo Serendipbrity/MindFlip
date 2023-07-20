@@ -5,6 +5,8 @@ import "../../css/flashcards.css";
 import { useQuery, useMutation } from "@apollo/client";
 import Modal from "react-modal";
 import "../../css/modals.css";
+import Alert from '../Alert'; 
+
 
 const FlashCards = (props) => {
   const [updateFlashCard] = useMutation(UPDATE_FLASHCARD);
@@ -150,7 +152,7 @@ const FlashCards = (props) => {
             Update
           </button>
           <button id="deleteBtn" onClick={handleDeleteFlashCard}>
-            Delete
+            Delete Flash Card
           </button>
           <button className="closeBtn" onClick={closeModal}>
             Close

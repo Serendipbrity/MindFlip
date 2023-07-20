@@ -156,6 +156,7 @@ const Dashboard = ({ drawerOpen, toggleDrawer }) => {
                     type="button"
                     onClick={handleAddFlashCard}
                     className="submit btn"
+                    id="submit"
                   >
                     Submit
                   </button>

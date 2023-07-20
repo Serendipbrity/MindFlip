@@ -57,32 +57,45 @@
  color: white;
 }
 
+/* specially the ADD submit button on modal */
+#submit {
+    position: relative;
+    left: 20px;
+}
+
 #deleteBtn {
     color: white;
-    background-color: rgba(255, 0, 0, .7);
+    background-color: rgba(255, 0, 0, .6);
     outline: red solid 1px;
     border-radius: 2px;
-    padding: 5px;
-    margin: 5px;
-    display: grid;
+    padding: 8px;
+    margin-top: 35px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #deleteBtn:hover {
     color: white;
     background-color: rgb(255, 0, 0);
     outline: red solid 1px;
-    border-radius: 2px;
+    border-radius: 4px;
     padding: 8px;
 }
+
+
 
 .closeBtn {
     color:var(--darkBlue);
     font-size: 18px;
     font-weight: 600;
-    /* place under submit */
-    display: block;
-    /* center button */
-    margin: auto;
-    /* move away from submit */
-    margin-top: 15%;
+    position: relative;
+    bottom: 700px;
+    left: 160px;
+}
+
+/* close button specifically on ADD flash card modal */
+#close {
+    bottom: 560px;
+    left: 120px;
 }
