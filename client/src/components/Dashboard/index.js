@@ -125,7 +125,7 @@ const Dashboard = ({ drawerOpen, toggleDrawer }) => {
               >
                 Add Flash Card
               </button>
-              <div>
+              {/* ADD flash card Modal */}
                 <Modal
                   className="modal"
                   isOpen={modalIsOpen}
@@ -135,20 +135,16 @@ const Dashboard = ({ drawerOpen, toggleDrawer }) => {
                     <h2 className="modalTitles">Add Flash Card</h2>
                     <form>
                       <h2 className="modalSubTitles">
-                        Front:
+                        Front of Card:
                       </h2>
-                      <textarea className="modalTextarea"
-                          type="text"
-                          name="frontInput"
+                      <textarea className="modalTextareas"
                           value={flashCardInput.frontInput}
                           onChange={handleInputChange}
                         />
                       <h2 className="modalSubTitles">
-                        Back:
+                        Back of Flash Card:
                       </h2>
-                      <textarea className="modalTextarea"
-                          type="text"
-                          name="backInput"
+                      <textarea className="modalTextareas"
                           value={flashCardInput.backInput}
                           onChange={handleInputChange}
                         />
@@ -156,10 +152,10 @@ const Dashboard = ({ drawerOpen, toggleDrawer }) => {
                     <button type="button" onClick={handleAddFlashCard} className="submit btn">
                         Submit
                       </button>
-                    <button onClick={() => setModalIsOpen(false)} className="closeBtn">Close</button>
+                    <button onClick={() => setModalIsOpen(false)} className="closeBtn" id="close">Close</button>
                   </div>
                 </Modal>
-              </div>
+         
             </div>
             <div className="categories section">
               <div className="cardTitle"> Categories</div>

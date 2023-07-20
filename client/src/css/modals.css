@@ -16,8 +16,8 @@
 }
 .modal-content {
     background-color: rgba(255, 255, 255, .2);
-    padding: 100px;
-    margin: 15% auto 15;  /* 15% from the top, centered */
+    padding: 60px;
+    margin: 15% auto 15%;  /* 15% from the top, centered */
     border: 1px solid #888;
     width: 100%; 
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
@@ -28,23 +28,26 @@
 .modalTitles {
     font-size: 35px;
     margin-bottom: 5%;
-    color: var(--darkBlue);
+    color: var(--darkOrange);
+    text-shadow: -.5px 0 black, 0 .5px black, .5px 0 black, 0 -.5px black;
     font-weight: 600;
 }
 .modalSubTitles {
     font-size: 25px;
-    color: var(--darkOrange);
+    color: var(--darkBlue);
+    
 }
 .modalTextareas {
     width: 100%;
     height: 100%;
     resize: none;
     font-size: 20px;
-    padding: 10%;
-    background-color: rgba(255, 255, 255, .8);
+    padding: 20% 35%;
+    background-color: rgba(255, 255, 255, .6);
 }
 
 .submit{
+    margin-top: 15%;
  color: white;
 }
 
@@ -67,7 +70,13 @@
 }
 
 .closeBtn {
-    color:var(--darkOrange);
+    color:var(--darkBlue);
     font-size: 18px;
     font-weight: 600;
+    /* place under submit */
+    display: block;
+    /* center button */
+    margin: auto;
+    /* move away from submit */
+    margin-top: 15%;
 }

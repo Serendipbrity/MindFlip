@@ -73,13 +73,14 @@ const FlashCards = (props) => {
           })}
         </div>
       )}
+      {/* UPDATE flash card Modal */}
           <Modal className="modal"
       isOpen={modalIsOpen}
       onRequestClose={closeModal}
       contentLabel="Flashcard Options"
       >
         <div className="modal-content">
-        <h2 className="modalTitles">Flashcard Options</h2>
+        <h2 className="modalTitles">Update Flashcard</h2>
         <div className="modalSubTitles">Front of Flash Card:</div>
         <textarea className="modalTextareas"></textarea>
         <div className="modalSubTitles">Back of Flash Card:</div>
