@@ -5,12 +5,13 @@ import Nav from "../Nav";
 import { LOGIN_USER } from '../../utils/mutations';
 import {Link, useNavigate} from 'react-router-dom';
 import Auth from '../../utils/auth';
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Login = ({ drawerOpen, toggleDrawer }) => {
   const [userFormData, setUserFormData] = useState({ email: '', password: '' });
   const [validated] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
-
+  const [showPassword, setShowPassword] = useState(false); // state to toggle password visibility
   const [login, { error }] = useMutation(LOGIN_USER);
 
   useEffect(() => {
@@ -109,7 +110,13 @@ const Login = ({ drawerOpen, toggleDrawer }) => {
                   className="block text-sm font-medium leading-6 text-white"
                 >
                   Password
-                </label>
+              </label>
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
                 <div className="text-sm">
                   <a href="#" className="btnLinks text-white">
                     Forgot password?

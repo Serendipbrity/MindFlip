@@ -80,7 +80,7 @@
     padding: 2%;
 }
 
-/* add flash card */
+/* all buttons */
 .dashButtons {
     color: white;
     padding: 2%;
@@ -104,6 +104,7 @@
     justify-content: space-between; /* Add space between children */
     padding: 2%;
 }
+
 
 /* Media query for larger screens */
 @media screen and (min-width: 768px) {

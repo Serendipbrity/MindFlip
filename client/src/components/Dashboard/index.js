@@ -7,6 +7,7 @@ import FlashCards from "../FlashCards";
 import "../../css/dashboard.css";
 import Modal from "react-modal";
 import { VIEW_FLASHCARDS, VIEW_FLASHCARD } from "../../utils/queries";
+import "../../css/modals.css";
 
 const Dashboard = ({ drawerOpen, toggleDrawer }) => {
   Modal.setAppElement("#root");
@@ -124,34 +125,37 @@ const Dashboard = ({ drawerOpen, toggleDrawer }) => {
               </button>
               <div>
                 <Modal
+                  className="modal"
                   isOpen={modalIsOpen}
                   onRequestClose={() => setModalIsOpen(false)}
                 >
-                  <h2>Add Flash Card</h2>
-                  <form>
-                    <label>
-                      Front:
-                      <input
-                        type="text"
-                        name="frontInput"
-                        value={flashCardInput.frontInput}
-                        onChange={handleInputChange}
-                      />
-                    </label>
-                    <label>
-                      Back:
-                      <input
-                        type="text"
-                        name="backInput"
-                        value={flashCardInput.backInput}
-                        onChange={handleInputChange}
-                      />
-                    </label>
-                    <button type="button" onClick={handleAddFlashCard}>
-                      Submit
-                    </button>
-                  </form>
-                  <button onClick={() => setModalIsOpen(false)}>Close</button>
+                  <div className="modal-content">
+                    <h2 className="modalTitles">Add Flash Card</h2>
+                    <form>
+                      <h2 className="modalSubTitles">
+                        Front:
+                      </h2>
+                      <textarea className="modalTextarea"
+                          type="text"
+                          name="frontInput"
+                          value={flashCardInput.frontInput}
+                          onChange={handleInputChange}
+                        />
+                      <h2 className="modalSubTitles">
+                        Back:
+                      </h2>
+                      <textarea className="modalTextarea"
+                          type="text"
+                          name="backInput"
+                          value={flashCardInput.backInput}
+                          onChange={handleInputChange}
+                        />
+                    </form>
+                    <button type="button" onClick={handleAddFlashCard} className="submit btn">
+                        Submit
+                      </button>
+                    <button onClick={() => setModalIsOpen(false)} className="closeBtn">Close</button>
+                  </div>
                 </Modal>
               </div>
             </div>

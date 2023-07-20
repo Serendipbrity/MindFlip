@@ -1,0 +1,73 @@
+.modal {
+    display: flex;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    background-image: url("../assets/img/mesh-gradient.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 100%;
+}
+.modal-content {
+    background-color: rgba(255, 255, 255, .2);
+    padding: 100px;
+    margin: 15% auto 15;  /* 15% from the top, centered */
+    border: 1px solid #888;
+    width: 100%; 
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    animation-name: animatetop;
+    animation-duration: 0.4s;
+}
+
+.modalTitles {
+    font-size: 35px;
+    margin-bottom: 5%;
+    color: var(--darkBlue);
+    font-weight: 600;
+}
+.modalSubTitles {
+    font-size: 25px;
+    color: var(--darkOrange);
+}
+.modalTextareas {
+    width: 100%;
+    height: 100%;
+    resize: none;
+    font-size: 20px;
+    padding: 10%;
+    background-color: rgba(255, 255, 255, .8);
+}
+
+.submit{
+ color: white;
+}
+
+#deleteBtn {
+    color: white;
+    background-color: rgba(255, 0, 0, .7);
+    outline: red solid 1px;
+    border-radius: 2px;
+    padding: 5px;
+    margin: 5px;
+    display: grid;
+}
+
+#deleteBtn:hover {
+    color: white;
+    background-color: rgb(255, 0, 0);
+    outline: red solid 1px;
+    border-radius: 2px;
+    padding: 8px;
+}
+
+.closeBtn {
+    color:var(--darkOrange);
+    font-size: 18px;
+    font-weight: 600;
+}
