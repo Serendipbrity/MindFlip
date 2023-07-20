@@ -6,7 +6,7 @@ import { ADD_FLASHCARD_TO_USER } from "../../utils/mutations";
 import FlashCards from "../FlashCards";
 import "../../css/dashboard.css";
 import Modal from "react-modal";
-import { VIEW_FLASHCARDS, VIEW_FLASHCARD } from "../../utils/queries";
+import { VIEW_FLASHCARDS } from "../../utils/queries";
 import "../../css/modals.css";
 
 const Dashboard = ({ drawerOpen, toggleDrawer }) => {
@@ -22,7 +22,9 @@ const Dashboard = ({ drawerOpen, toggleDrawer }) => {
   const userId = payload.id;
 
   const [showFlashCards, setShowFlashCards] = useState(false);
-  const { loading, data } = useQuery(VIEW_FLASHCARDS);
+  const { loading, data } = useQuery(VIEW_FLASHCARDS, {
+    variables: { userId },
+  });
 
   const handleButtonClick = () => {
     setShowFlashCards(true);
@@ -164,7 +166,8 @@ const Dashboard = ({ drawerOpen, toggleDrawer }) => {
               <button className="dashButtons">View Categories</button>
               <button className="dashButtons">Add Category</button>
             </div>
-            <FlashCards showFlashCards={showFlashCards} />
+            <FlashCards showFlashCards={showFlashCards} flashCards={data?.viewFlashCards} />
+
           </div>
         </div>
       </div>

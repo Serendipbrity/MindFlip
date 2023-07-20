@@ -31,8 +31,8 @@ const typeDefs = gql`
 
   type Query {
     viewUsers: [User]
-    viewUser: User
-    viewFlashCards: [FlashCards]
+    viewUser(_id:ID): User
+    viewFlashCards(userId:ID!):[FlashCards]
     viewFlashCard: FlashCards
   }
   type Mutation {

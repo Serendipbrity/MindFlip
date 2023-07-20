@@ -16,20 +16,21 @@ const resolvers = {
       }
     },
     // view a single user
-    viewUser: async (args) => {
+    viewUser: async (_, { _id }) => {
+      console.log(_id); // log the _id value
       try {
-        //   find ine user and populate with flashcards
-        const user = await User.findOne({ args }).populate("flashcards");
+        // find one user and populate with flashcards
+        const user = await User.findOne({_id }).populate("flashcards");
         return user;
-      } catch {
+      } catch (err) {
         console.log(err);
         throw new Error("No user found");
       }
     },
-    // view all flash cards
-    viewFlashCards: async () => {
+    // view all flash cards of a user
+    viewFlashCards: async (_, { userId }) => {
       try {
-        const flachCards = await FlashCards.find();
+        const flachCards = await FlashCards.find({ userId });
         return flachCards;
       } catch (err) {
         console.log(err);
@@ -166,8 +167,12 @@ const resolvers = {
     addFlashCardToUser: async (_, { userId, frontInput, backInput }) => {
       try {
         // Create the flashcard
-        const flashCard = await FlashCards.create({ frontInput, backInput, userId });
-    
+        const flashCard = await FlashCards.create({
+          frontInput,
+          backInput,
+          userId,
+        });
+
         // Add the flashcard to the user
         const user = await User.findByIdAndUpdate(
           userId,
@@ -176,11 +181,11 @@ const resolvers = {
           // return updated data
           { new: true }
         ).populate("flashcards");
-    
+
         if (!user) {
           throw new Error("User not found");
         }
-    
+
         return user;
       } catch (err) {
         console.log(err);

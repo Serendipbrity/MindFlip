@@ -33,8 +33,8 @@ export const VIEW_USER = gql`
   }
 `;
 export const VIEW_FLASHCARDS = gql`
-  query Query {
-    viewFlashCards {
+  query Query($userId: ID!) {
+    viewFlashCards(userId: $userId) {
       _id
       backInput
       frontInput

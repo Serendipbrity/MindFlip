@@ -20,7 +20,7 @@ const FlashCards = (props) => {
 
   const { loading, data } = useQuery(VIEW_FLASHCARDS);
   // viewFlashCards is from the query / graphql
-  const flashcards = data?.viewFlashCards || [];
+  const flashcards = props.flashCards || [];
   const { showFlashCards } = props;
 
   // Declare a new state variable for flip action
