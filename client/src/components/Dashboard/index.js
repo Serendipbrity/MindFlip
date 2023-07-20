@@ -21,16 +21,16 @@ const Dashboard = ({ drawerOpen, toggleDrawer }) => {
 
   // Now get the userId
   const userId = payload.id;
-// flash cards start off not showing
+  // flash cards start off not showing
   const [showFlashCards, setShowFlashCards] = useState(false);
   const { loading, data } = useQuery(VIEW_FLASHCARDS, {
     variables: { userId },
   });
-// when clicking the button, show flash cards
+  // when clicking the button, show flash cards
   const handleButtonClick = () => {
     setShowFlashCards(true);
   };
-// modal starts off not showing
+  // modal starts off not showing
   const [modalIsOpen, setModalIsOpen] = useState(false);
   // flash card inputs start off empty
   const [flashCardInput, setFlashCardInput] = useState({
@@ -60,6 +60,7 @@ const Dashboard = ({ drawerOpen, toggleDrawer }) => {
           backInput,
         },
       });
+      window.alert("Flash Card Added!").window.location.reload();
     } catch (err) {
       if (err.graphQLErrors) {
         err.graphQLErrors.map(({ message, locations, path }) =>
@@ -129,44 +130,54 @@ const Dashboard = ({ drawerOpen, toggleDrawer }) => {
               </button>
               {/* ADD flash card Modal */}
               <Modal
-                 
-                  className="modal"
-                  isOpen={modalIsOpen}
-                  onRequestClose={() => setModalIsOpen(false)}
-                >
-                  <div className="modal-content" id="addModal-Content">
-                    <h2 className="modalTitles">Add Flash Card</h2>
-                    <form>
-                      <h2 className="modalSubTitles">
-                        Front of Card:
-                      </h2>
-                      <textarea className="modalTextareas"
-                          value={flashCardInput.frontInput}
-                          onChange={handleInputChange}
-                        />
-                      <h2 className="modalSubTitles">
-                        Back of Flash Card:
-                      </h2>
-                      <textarea className="modalTextareas"
-                          value={flashCardInput.backInput}
-                          onChange={handleInputChange}
-                        />
-                    </form>
-                    <button type="button" onClick={handleAddFlashCard} className="submit btn">
-                        Submit
-                      </button>
-                    <button onClick={() => setModalIsOpen(false)} className="closeBtn" id="close">Close</button>
-                  </div>
-                </Modal>
-         
+                className="modal"
+                isOpen={modalIsOpen}
+                onRequestClose={() => setModalIsOpen(false)}
+              >
+                <div className="modal-content" id="addModal-Content">
+                  <h2 className="modalTitles">Add Flash Card</h2>
+                  <form>
+                    <h2 className="modalSubTitles">Front of Card:</h2>
+                    <textarea
+                      className="modalTextareas"
+                      name="frontInput"
+                      value={flashCardInput.frontInput}
+                      onChange={handleInputChange}
+                    />
+                    <h2 className="modalSubTitles">Back of Flash Card:</h2>
+                    <textarea
+                      name="backInput"
+                      className="modalTextareas"
+                      value={flashCardInput.backInput}
+                      onChange={handleInputChange}
+                    />
+                  </form>
+                  <button
+                    type="button"
+                    onClick={handleAddFlashCard}
+                    className="submit btn"
+                  >
+                    Submit
+                  </button>
+                  <button
+                    onClick={() => setModalIsOpen(false)}
+                    className="closeBtn"
+                    id="close"
+                  >
+                    Close
+                  </button>
+                </div>
+              </Modal>
             </div>
             <div className="categories section">
               <div className="cardTitle"> Categories</div>
               <button className="dashButtons">View Categories</button>
               <button className="dashButtons">Add Category</button>
             </div>
-            <FlashCards showFlashCards={showFlashCards} flashCards={data?.viewFlashCards} />
-
+            <FlashCards
+              showFlashCards={showFlashCards}
+              flashCards={data?.viewFlashCards}
+            />
           </div>
         </div>
       </div>
