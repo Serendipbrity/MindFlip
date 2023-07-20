@@ -1,17 +1,19 @@
 import { gql } from '@apollo/client';
 
-export const MUTATIONS = gql`
-mutation Mutation {
-    addFlashCardToUser {
+export const UPDATE_FLASHCARD = gql`
+  mutation UpdateFlashCard($id: ID!, $frontInput: String, $backInput: String) {
+    updateFlashCard(_id: $id, frontInput: $frontInput, backInput: $backInput) {
       _id
-      email
-      username
-      password
-      flashcards {
-        _id
-        frontInput
-        backInput
-      }
+      frontInput
+      backInput
+    }
+  }
+`;
+
+export const DELETE_FLASHCARD = gql`
+  mutation DeleteFlashCard($id: ID!) {
+    deleteFlashCard(_id: $id) {
+      _id
     }
   }
 `;

@@ -11,6 +11,7 @@ import "../../css/modals.css";
 
 const Dashboard = ({ drawerOpen, toggleDrawer }) => {
   Modal.setAppElement("#root");
+  // get token from local storage
   const idToken = localStorage.getItem("id_token");
 
   // Decode the JWT to get its payload
@@ -20,17 +21,18 @@ const Dashboard = ({ drawerOpen, toggleDrawer }) => {
 
   // Now get the userId
   const userId = payload.id;
-
+// flash cards start off not showing
   const [showFlashCards, setShowFlashCards] = useState(false);
   const { loading, data } = useQuery(VIEW_FLASHCARDS, {
     variables: { userId },
   });
-
+// when clicking the button, show flash cards
   const handleButtonClick = () => {
     setShowFlashCards(true);
   };
-
+// modal starts off not showing
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  // flash card inputs start off empty
   const [flashCardInput, setFlashCardInput] = useState({
     frontInput: "",
     backInput: "",
@@ -126,12 +128,13 @@ const Dashboard = ({ drawerOpen, toggleDrawer }) => {
                 Add Flash Card
               </button>
               {/* ADD flash card Modal */}
-                <Modal
+              <Modal
+                 
                   className="modal"
                   isOpen={modalIsOpen}
                   onRequestClose={() => setModalIsOpen(false)}
                 >
-                  <div className="modal-content">
+                  <div className="modal-content" id="addModal-Content">
                     <h2 className="modalTitles">Add Flash Card</h2>
                     <form>
                       <h2 className="modalSubTitles">
