@@ -32,6 +32,24 @@
   /* box-sizing: border-box; */
 }
 
+/* how fast they move */
+.swipe-right {
+  animation: swipeRight 0.5s forwards;
+}
+
+.swipe-left {
+  animation: swipeLeft 0.5s forwards;
+}
+/* the angle at which they move */
+@keyframes swipeRight {
+  100% { transform: translate(150%, -75%); }
+}
+
+@keyframes swipeLeft {
+  100% { transform: translate(-150%, -75%); }
+}
+
+
 /* specifcally the card container */
 .card {
   display: flex;
@@ -77,4 +95,14 @@
 /* flip card */
 .card.is-flipped {
   transform: rotateY(180deg);
+}
+
+
+.exitGame {
+  position: absolute;
+  top: 5px;
+  right: 15px;
+  color: var(--darkBlue);
+  font-size: 15px;
+  font-weight: 500;
 }

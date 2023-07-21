@@ -15,24 +15,43 @@ const FlashCardGame = ({ flashCards }) => {
     });
   
     const answerCard = (knewAnswer) => {
-      setAnsweredCards([...answeredCards, { ...flashCards[currentCardIndex], knewAnswer }]);
-      setCurrentCardIndex(currentCardIndex + 1);
-      setIsFlipped(''); // Reset the flip state when answering a card
-    };
-  
+        setAnsweredCards([...answeredCards, { ...flashCards[currentCardIndex], knewAnswer }]);
+        setIsFlipped(knewAnswer ? 'swipe-right' : 'swipe-left'); // Add classes for swipe animations
+        setTimeout(() => { // Delay to allow animation to complete
+          setCurrentCardIndex(currentCardIndex + 1);
+          setIsFlipped(false);
+        }, 1000); // Adjust delay to match animation duration
+      };
+      
+    
+      // game starts off not showing
+  const [gameStarted, setGameStarted] = useState(false);
+
+  if (currentCardIndex === flashCards.length) {
+    // End the game
+      setGameStarted(false);
+  }
+    
     const handleFlip = () => {
       setIsFlipped(isFlipped === '' ? 'is-flipped' : ''); // Toggle between '' and 'is-flipped'
     };
   
     return (
+        <div>
       <div {...handlers} onClick={handleFlip} className={`card ${isFlipped}`} id='gameCard'>
         <div className="card__face card__face--front" >
-          {flashCards && flashCards[currentCardIndex]?.frontInput}
+                    {flashCards && flashCards[currentCardIndex]?.frontInput}
+                    <button className="exitGame" onClick={() => setGameStarted(false)}>Exit Game</button>
         </div>
         <div className="card__face card__face--back">
-          {flashCards && flashCards[currentCardIndex]?.backInput}
-        </div>
-      </div>
+                    {flashCards && flashCards[currentCardIndex]?.backInput}
+                    <button className="exitGame" onClick={() => setGameStarted(false)}>Exit Game</button>
+                </div>
+          
+            </div>
+        
+
+            </div>
     );
   };
   

@@ -36,6 +36,8 @@ const Dashboard = ({ drawerOpen, toggleDrawer }) => {
     setGameStarted(true);
   };
 
+
+
   // when clicking the button, show flash cards
   const handleButtonClick = () => {
     setShowFlashCards(true);
