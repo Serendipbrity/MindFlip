@@ -23,6 +23,15 @@
   height: 200px;
   perspective: 800px;
 }
+
+#gameCard {
+  display: flex;
+  position: absolute;
+  width:81vw;
+  height:81vh;
+  /* box-sizing: border-box; */
+}
+
 /* specifcally the card container */
 .card {
   display: flex;

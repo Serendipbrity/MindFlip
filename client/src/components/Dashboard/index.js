@@ -4,14 +4,16 @@ import React, { useState, useContext } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { ADD_FLASHCARD_TO_USER } from "../../utils/mutations";
 import FlashCards from "../FlashCards";
+import FlashCardGame from "../FlashCardGame";
 import "../../css/dashboard.css";
 import Modal from "react-modal";
 import { VIEW_FLASHCARDS } from "../../utils/queries";
 import "../../css/modals.css";
 
 const Dashboard = ({ drawerOpen, toggleDrawer }) => {
+  
   Modal.setAppElement("#root");
-  // get token from local storage
+  // get token from local storage. We need this to get the user id so we can pull the users flash cards
   const idToken = localStorage.getItem("id_token");
 
   // Decode the JWT to get its payload
@@ -26,6 +28,14 @@ const Dashboard = ({ drawerOpen, toggleDrawer }) => {
   const { loading, data } = useQuery(VIEW_FLASHCARDS, {
     variables: { userId },
   });
+  // game starts off not showing
+  const [gameStarted, setGameStarted] = useState(false);
+  const startGame = () => {
+    console.log(data.viewFlashCards);
+
+    setGameStarted(true);
+  };
+
   // when clicking the button, show flash cards
   const handleButtonClick = () => {
     setShowFlashCards(true);
@@ -112,9 +122,15 @@ const Dashboard = ({ drawerOpen, toggleDrawer }) => {
         <div className="hero-overlay bg-opacity-10"></div>
         <div id="dashboardText">Dashboard</div>
         <div id="dashContainer">
-          <button className="btn section row" id="begin">
-            Begin Game
-          </button>
+          
+        {gameStarted && Array.isArray(data?.viewFlashCards) && data.viewFlashCards.length > 0 ? (
+  <FlashCardGame flashCards={data.viewFlashCards} />
+) : (
+  <button className="btn section row" id="begin" onClick={startGame} disabled={loading}>
+    Begin Game
+  </button>
+)}
+
           <div className="row">
             <div className="myFlashCards section">
               <div className="cardTitle"> My Flash Cards</div>
