@@ -1,5 +1,5 @@
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { HashRouter as Router, Route, Routes } from 'react-router-dom';
 import FlashCards from './components/FlashCards';
 import Home from './components/Home';
 import Login from './components/Login'; 

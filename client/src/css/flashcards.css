@@ -106,3 +106,21 @@
   font-size: 15px;
   font-weight: 500;
 }
+
+#gameOver {
+  color: var(--darkOrange);
+ 
+  font-size: 40px;
+  font-weight: 600;
+  text-shadow: -.5px 0 white, 0 .5px white, .5px 0 white, 0 -.5px white;
+}
+
+#gameOverContainer {
+  background-color: var(--darkBlue);
+  border: white solid 2px;
+  padding: 7%;
+  display: flex;
+  position: absolute;
+  top: 40%;
+  left: 20%;
+}
