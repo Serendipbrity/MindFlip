@@ -25,6 +25,7 @@ const userSchema = new Schema(
       type: String,
       required: [true, "Password is required"],
     },
+    categories: [{ type: Schema.Types.ObjectId, ref: "Category" }],
     // the users flashcards
     flashcards: [{ type: Schema.Types.ObjectId, ref: "FlashCards" }],
     // the users friends

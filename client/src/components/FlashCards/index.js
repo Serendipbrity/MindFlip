@@ -62,6 +62,7 @@ const FlashCards = (props) => {
         closeModal()
         // alert user that flash card was deleted and re load the page so that it shows
         window.alert('Flash Card Deleted!').location.reload();
+       
       } catch (err) {
         console.error(err);
       }

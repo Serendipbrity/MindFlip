@@ -6,12 +6,12 @@ const flashCardSchema = new Schema(
     {
         frontInput: {
             type: String,
-            required: [true, 'Please enter a flash card title'],
+            // required: [true, 'Please enter a flash card title'],
             trim: true
         },
         backInput: {
             type: String,
-            required: [true, 'Please enter a flash card description'],
+            // required: [true, 'Please enter a flash card description'],
             trim: true
         },
         category: {

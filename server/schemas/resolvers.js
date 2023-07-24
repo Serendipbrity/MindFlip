@@ -1,4 +1,4 @@
-const { User, FlashCards } = require("../models");
+const { User, FlashCards, Category } = require("../models");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
@@ -8,7 +8,7 @@ const resolvers = {
     viewUsers: async () => {
       try {
         //   find all users and populate with flashcards
-        const users = await User.find().populate("flashcards");
+        const users = await User.find().populate("flashcards").populate("categories");
         return users;
       } catch (err) {
         console.log(err);
@@ -20,7 +20,7 @@ const resolvers = {
       console.log(_id); // log the _id value
       try {
         // find one user and populate with flashcards
-        const user = await User.findOne({_id }).populate("flashcards");
+        const user = await User.findOne({_id }).populate("flashcards").populate("categories");
         return user;
       } catch (err) {
         console.log(err);
@@ -47,6 +47,16 @@ const resolvers = {
         throw new Error("No flash card found");
       }
     },
+    // view all categories
+    viewCategories: async () => {
+      try {
+        const categories = await Category.find().populate("flashcards");
+        return categories;
+      } catch (err) {
+        console.log(err);
+        throw new Error("No categories found");
+      }
+    }
   },
   Mutation: {
     addFlashCard: async (_, args, context) => {
@@ -192,6 +202,59 @@ const resolvers = {
         throw err;
       }
     },
+    // add category to user
+    addCategoryToUser: async (_, { userId, category }) => { 
+      try {
+        const newCategory = await Category.create({category});
+        const user = await User.findByIdAndUpdate(
+          userId,
+
+          // $addToSet to add the category to the user's categories array
+          { $addToSet: { categories: newCategory._id } },
+          // return updated data
+          { new: true }
+        ).populate("categories");
+
+        if (!user) { 
+          throw new Error("User not found");
+        }
+        return (newCategory);
+      } catch (err) { 
+        console.log(err);
+        throw err;
+      } 
+    },
+    
+  // add flash card to category
+    addFlashCardToCategory: async (_, { categoryId, frontInput, backInput, userId, flashCardId }) => { 
+      try {
+        let flashCard;
+        if (flashCardId) {
+          flashCard = await FlashCards.findById(flashCardId);
+          if (!flashCard) {
+            throw new Error("Flash card not found");
+          }
+        } else {
+
+          flashCard = await FlashCards.create({
+            frontInput,
+            backInput,
+            categoryId,
+            userId,
+          })
+        };
+      const category = await Category.findByIdAndUpdate(
+        categoryId,
+        // $addToSet to add the flashcard's ID to the category's flashcards array
+        { $addToSet: { flashcards: flashCard._id } },
+        { new: true }
+      ).populate("flashcards");
+      return category;
+      } catch (err) {
+        console.log(err);
+        throw err;
+      }
+     }
   },
 };
 

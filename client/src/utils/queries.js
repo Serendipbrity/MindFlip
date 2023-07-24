@@ -52,3 +52,11 @@ export const VIEW_FLASHCARD = gql`
     }
   }
 `;
+
+export const VIEW_CATEGORIES = gql`
+query Query {
+  viewCategories {
+    _id
+    category
+  }
+}`;

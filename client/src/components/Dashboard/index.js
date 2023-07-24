@@ -7,7 +7,7 @@ import FlashCards from "../FlashCards";
 import FlashCardGame from "../FlashCardGame";
 import "../../css/dashboard.css";
 import Modal from "react-modal";
-import { VIEW_FLASHCARDS } from "../../utils/queries";
+import { VIEW_FLASHCARDS, VIEW_CATEGORIES } from "../../utils/queries";
 import "../../css/modals.css";
 
 const Dashboard = ({ drawerOpen, toggleDrawer }) => {
@@ -72,7 +72,7 @@ const Dashboard = ({ drawerOpen, toggleDrawer }) => {
           backInput,
         },
       });
-      window.alert("Flash Card Added!").window.location.reload();
+      window.alert("Flash Card Added!").location.reload();
     } catch (err) {
       if (err.graphQLErrors) {
         err.graphQLErrors.map(({ message, locations, path }) =>
@@ -91,6 +91,8 @@ const Dashboard = ({ drawerOpen, toggleDrawer }) => {
     setModalIsOpen(false);
     setFlashCardInput({ frontInput: "", backInput: "" });
   };
+
+  const viewCategories = useQuery(VIEW_CATEGORIES);
 
   return (
     <>
@@ -196,6 +198,7 @@ const Dashboard = ({ drawerOpen, toggleDrawer }) => {
             <FlashCards
               showFlashCards={showFlashCards}
               flashCards={data?.viewFlashCards}
+              handleButtonClick={handleButtonClick}
             />
           </div>
         </div>

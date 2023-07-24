@@ -8,6 +8,7 @@ const typeDefs = gql`
     password: String
     flashcards: [FlashCards]
     friends: [User]
+    categories: [Category]
   }
 
   type Category {
@@ -34,6 +35,7 @@ const typeDefs = gql`
     viewUser(_id:ID): User
     viewFlashCards(userId:ID!):[FlashCards]
     viewFlashCard: FlashCards
+    viewCategories: [Category]
   }
   type Mutation {
     addUser(username: String!, email: String!, password: String!): User
@@ -69,7 +71,9 @@ const typeDefs = gql`
 
     addFlashCardToUser(userId: ID!, frontInput: String!, backInput: String!): User
 
+    addCategoryToUser(userId:ID!, category: String!): Category
 
+    addFlashCardToCategory(categoryId:ID!, frontInput: String, backInput: String, flashCardId:ID): Category
   }
 `;
 

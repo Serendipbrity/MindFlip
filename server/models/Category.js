@@ -13,7 +13,12 @@ const categorySchema = new Schema(
         flashcards: [{
             type: Schema.Types.ObjectId,
             ref: 'FlashCards'
-        }]
+        }],
+        // categories belong to one user
+        userId: {
+            type: Schema.Types.ObjectId,
+            ref: 'User'
+        }
     }
 );
 
