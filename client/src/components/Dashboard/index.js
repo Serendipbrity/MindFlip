@@ -130,7 +130,7 @@ const Dashboard = ({ drawerOpen, toggleDrawer }) => {
         {gameStarted && Array.isArray(data?.viewFlashCards) && data.viewFlashCards.length > 0 ? (
   <FlashCardGame flashCards={data.viewFlashCards} />
 ) : (
-  <button className="btn section row" id="begin" onClick={startGame} disabled={loading}>
+  <button className="btn section row begin" onClick={startGame} disabled={loading}>
     Begin Game
   </button>
 )}

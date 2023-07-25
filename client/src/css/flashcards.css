@@ -97,7 +97,7 @@
   transform: rotateY(180deg);
 }
 
-
+/* exit game button on card */
 .exitGame {
   position: absolute;
   top: 5px;
@@ -106,21 +106,19 @@
   font-size: 15px;
   font-weight: 500;
 }
-
+/* game over text pop up */
 #gameOver {
   color: var(--darkOrange);
- 
   font-size: 40px;
   font-weight: 600;
-  text-shadow: -.5px 0 white, 0 .5px white, .5px 0 white, 0 -.5px white;
+  text-shadow: -.5px 0 black, 0 .5px black, .5px 0 black, 0 -.5px black;
 }
 
+/* entire game over pop up container */
 #gameOverContainer {
-  background-color: var(--darkBlue);
-  border: white solid 2px;
-  padding: 7%;
-  display: flex;
-  position: absolute;
-  top: 40%;
-  left: 20%;
+  background:linear-gradient(to right, var(--lightBlue), var(--darkBlue));;
+  box-shadow: black 0px 0px 10px;
+  height: 100%;
+  width: 100%;
+  text-align: center;
 }

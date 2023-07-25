@@ -25,7 +25,7 @@
 }
 
 /* begin button */
-#begin {
+.begin{
     display: flex;           
     font-size: larger;
     /* position: absolute; */
@@ -43,7 +43,7 @@
 }
 
 /* when hovering begin button */
-#begin:hover {
+.begin:hover {
     /* make text bigger */
    font-size: 22px;
    /* remove border */

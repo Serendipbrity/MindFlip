@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSwipeable } from "react-swipeable";
 import "../../css/flashcards.css";
 
@@ -27,15 +27,36 @@ const FlashCardGame = ({ flashCards }) => {
     }, 1000); // Adjust delay to match animation duration
   };
 
-  // game starts off not showing
   const [gameStarted, setGameStarted] = useState(false);
+  const [showGameOver, setShowGameOver] = useState(false);
 
-  if (currentCardIndex === flashCards.length) {
-    // End the game
+  useEffect(() => {
+    if (currentCardIndex === flashCards.length) {
+      setShowGameOver(true);
+      setGameStarted(false); // Set gameStarted to false when the game is over
+    }
+  }, [currentCardIndex, flashCards.length]);
+
+  useEffect(() => {
+    if (showGameOver) {
+      const timer = setTimeout(() => {
+        setShowGameOver(false);
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [showGameOver]);
+
+  if (showGameOver) {
     return (
       <div id="gameOverContainer">
-        <div id="gameOver">Game Over!</div>;
+        <div id="gameOver">Game Over!</div>
       </div>
+    );
+  }
+
+  if (!gameStarted) {
+    return (
+      <button onClick={() => setGameStarted(true)} className="btn section row begin">Begin Game</button>
     );
   }
 
