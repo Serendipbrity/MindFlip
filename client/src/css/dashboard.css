@@ -39,7 +39,8 @@
     /* keeps text in center of button */
     line-height: 0; 
     background-color: var(--darkOrange);
-    border: rgba(255, 255, 255, .4) solid 1px;
+    /* border: rgba(255, 255, 255, .4) solid 1px; */
+    box-shadow: black 0px 0px 10px;
 }
 
 /* when hovering begin button */
@@ -86,8 +87,9 @@
     padding: 2%;
     margin: 2%;
     background-color: var(--darkBlue);
-    border: rgba(255, 255, 255,.4) solid 1px;
+    /* border: rgba(255, 255, 255,.4) solid 1px; */
     border-radius: 8px;
+    box-shadow: black 0px 0px 10px;
 }
 
 /* when hovering over dash buttons */

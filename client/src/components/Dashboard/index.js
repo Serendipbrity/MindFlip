@@ -5,13 +5,13 @@ import { useQuery, useMutation } from "@apollo/client";
 import { ADD_FLASHCARD_TO_USER } from "../../utils/mutations";
 import FlashCards from "../FlashCards";
 import FlashCardGame from "../FlashCardGame";
+import Categories from "../Categories";
 import "../../css/dashboard.css";
 import Modal from "react-modal";
 import { VIEW_FLASHCARDS, VIEW_CATEGORIES } from "../../utils/queries";
 import "../../css/modals.css";
 
 const Dashboard = ({ drawerOpen, toggleDrawer }) => {
-  
   Modal.setAppElement("#root");
   // get token from local storage. We need this to get the user id so we can pull the users flash cards
   const idToken = localStorage.getItem("id_token");
@@ -25,18 +25,19 @@ const Dashboard = ({ drawerOpen, toggleDrawer }) => {
   const userId = payload.id;
   // flash cards start off not showing
   const [showFlashCards, setShowFlashCards] = useState(false);
-  const { loading, data } = useQuery(VIEW_FLASHCARDS, {
-    variables: { userId },
-  });
+  const { loading: loadingFlashCards, data: dataFlashCards } = useQuery(
+    VIEW_FLASHCARDS,
+    {
+      variables: { userId },
+    }
+  );
   // game starts off not showing
   const [gameStarted, setGameStarted] = useState(false);
   const startGame = () => {
-    console.log(data.viewFlashCards);
+    console.log(dataFlashCards.viewFlashCards);
 
     setGameStarted(true);
   };
-
-
 
   // when clicking the button, show flash cards
   const handleButtonClick = () => {
@@ -65,7 +66,7 @@ const Dashboard = ({ drawerOpen, toggleDrawer }) => {
     const { frontInput, backInput } = flashCardInput; // Assuming you have a form controlling these values
 
     try {
-      const { data } = await addFlashCardToUser({
+      const { dataFlashCards } = await addFlashCardToUser({
         variables: {
           userId,
           frontInput,
@@ -92,7 +93,15 @@ const Dashboard = ({ drawerOpen, toggleDrawer }) => {
     setFlashCardInput({ frontInput: "", backInput: "" });
   };
 
-  const viewCategories = useQuery(VIEW_CATEGORIES);
+  // categories
+  const { loading: loadingCategories, data: categoriesData } =
+    useQuery(VIEW_CATEGORIES);
+  const [showCategories, setShowCategories] = useState(false);
+
+  const handleCategoryButtonClick = () => {
+    console.log(categoriesData.viewCategories);
+    setShowCategories(true);
+  };
 
   return (
     <>
@@ -126,14 +135,19 @@ const Dashboard = ({ drawerOpen, toggleDrawer }) => {
         <div className="hero-overlay bg-opacity-10"></div>
         <div id="dashboardText">Dashboard</div>
         <div id="dashContainer">
-          
-        {gameStarted && Array.isArray(data?.viewFlashCards) && data.viewFlashCards.length > 0 ? (
-  <FlashCardGame flashCards={data.viewFlashCards} />
-) : (
-  <button className="btn section row begin" onClick={startGame} disabled={loading}>
-    Begin Game
-  </button>
-)}
+          {gameStarted &&
+          Array.isArray(dataFlashCards?.viewFlashCards) &&
+          dataFlashCards.viewFlashCards.length > 0 ? (
+            <FlashCardGame flashCards={dataFlashCards.viewFlashCards} />
+          ) : (
+            <button
+              className="btn section row begin"
+              onClick={startGame}
+              disabled={loadingFlashCards}
+            >
+              Begin Game
+            </button>
+          )}
 
           <div className="row">
             <div className="myFlashCards section">
@@ -192,12 +206,24 @@ const Dashboard = ({ drawerOpen, toggleDrawer }) => {
             </div>
             <div className="categories section">
               <div className="cardTitle"> Categories</div>
-              <button className="dashButtons">View Categories</button>
+              <button
+                className="dashButtons"
+                onClick={handleCategoryButtonClick}
+                disabled={loadingCategories}
+              >
+                View Categories
+              </button>
+              {showCategories &&
+                Array.isArray(categoriesData?.viewCategories) &&
+                categoriesData.viewCategories.length > 0 && (
+                  <Categories categories={categoriesData.viewCategories} />
+                )}
+
               <button className="dashButtons">Add Category</button>
             </div>
             <FlashCards
               showFlashCards={showFlashCards}
-              flashCards={data?.viewFlashCards}
+              flashCards={dataFlashCards?.viewFlashCards}
               handleButtonClick={handleButtonClick}
             />
           </div>
