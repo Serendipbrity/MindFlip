@@ -213,11 +213,7 @@ const Dashboard = ({ drawerOpen, toggleDrawer }) => {
               >
                 View Categories
               </button>
-              {showCategories &&
-                Array.isArray(categoriesData?.viewCategories) &&
-                categoriesData.viewCategories.length > 0 && (
-                  <Categories categories={categoriesData.viewCategories} />
-                )}
+              
 
               <button className="dashButtons">Add Category</button>
             </div>
@@ -226,6 +222,11 @@ const Dashboard = ({ drawerOpen, toggleDrawer }) => {
               flashCards={dataFlashCards?.viewFlashCards}
               handleButtonClick={handleButtonClick}
             />
+            {showCategories &&
+                Array.isArray(categoriesData?.viewCategories) &&
+                categoriesData.viewCategories.length > 0 && (
+                  <Categories categories={categoriesData.viewCategories} />
+                )}
           </div>
         </div>
       </div>
