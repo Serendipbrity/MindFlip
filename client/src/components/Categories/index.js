@@ -25,6 +25,24 @@ const Categories = (props) => {
     setIsOpen(false);
   }
     
+    // update category function
+    const [updateCategory] = useMutation(UPDATE_CATEGORY);
+    const handleUpdateCategory = async () => { 
+        try { 
+            await updateCategory({
+            variables: {
+                id: currentCategory._id,
+                category: input,
+            },
+            });
+            closeModal();
+            // alert user that category was updated and re load the page so that it shows
+            window.alert('Category Updated!').location.reload();
+        } catch (err) { 
+            console.error(err);
+        }
+     }
+    
   return (
     <div>
       {/* if loading data */}
@@ -63,17 +81,17 @@ const Categories = (props) => {
         contentLabel="Flashcard Options"
       >
         <div className="modal-content">
-          <h2 className="modalTitles">Update Flashcard</h2>
-          <div className="modalSubTitles">Front of Flash Card:</div>
+          <h2 className="modalTitles">Update Category</h2>
+          <div className="modalSubTitles"></div>
           <textarea
             className="modalTextareas"
             value={input}
             onChange={(e) => setInput(e.target.value)}
           ></textarea>
-          {/* <button className="btn submit" onClick={handleUpdateCategory}>
+          <button className="btn submit" onClick={handleUpdateCategory}>
             Update Category
           </button>
-          <button id="deleteBtn" onClick={handleDeleteCategory}>
+          {/* <button id="deleteBtn" onClick={handleDeleteCategory}>
             Delete Category
           </button> */}
           <button className="closeBtn" onClick={closeModal}>

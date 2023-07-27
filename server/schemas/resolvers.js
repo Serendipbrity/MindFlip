@@ -218,7 +218,7 @@ const resolvers = {
         if (!user) { 
           throw new Error("User not found");
         }
-        return (newCategory);
+        return user;
       } catch (err) { 
         console.log(err);
         throw err;
@@ -254,7 +254,21 @@ const resolvers = {
         console.log(err);
         throw err;
       }
-     }
+    },
+    // update category
+    updateCategory: async (_, args) => {
+      try {
+        const category = await Category.findOneAndUpdate(
+          { _id: args._id },
+          args,
+          { new: true }
+        );
+        return category;
+      } catch (err) {
+        console.log(err);
+        throw new Error("No category found");
+      }
+    },
   },
 };
 

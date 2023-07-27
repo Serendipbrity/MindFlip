@@ -55,4 +55,11 @@ mutation AddFlashCardToUser($userId: ID!, $frontInput: String!, $backInput: Stri
 }
 `;
 
+export const UPDATE_CATEGORY = gql`
+  mutation UpdateCategory($id: ID!, $category: String) {
+    updateCategory(_id: $id, category: $category) {
+      _id
+      category
+      }
+      }`;
 

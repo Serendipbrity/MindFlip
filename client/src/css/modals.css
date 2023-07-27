@@ -34,7 +34,8 @@
     font-size: 35px;
     margin-bottom: 5%;
     color: var(--darkOrange);
-    text-shadow: -.5px 0 black, 0 .5px black, .5px 0 black, 0 -.5px black;
+    /* thin black outline around title */
+    text-shadow: -.6px 0 black, 0 .6px black, .6px 0 black, 0 -.6px black;
     font-weight: 600;
 }
 .modalSubTitles {

@@ -71,9 +71,11 @@ const typeDefs = gql`
 
     addFlashCardToUser(userId: ID!, frontInput: String!, backInput: String!): User
 
-    addCategoryToUser(userId:ID!, category: String!): Category
+    addCategoryToUser(userId:ID!, category: String!): User
 
     addFlashCardToCategory(categoryId:ID!, frontInput: String, backInput: String, flashCardId:ID): Category
+
+    updateCategory(_id: ID!, category: String): Category
   }
 `;
 
