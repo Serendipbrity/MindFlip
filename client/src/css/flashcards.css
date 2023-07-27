@@ -58,7 +58,7 @@
   height: 100%;
   transition: transform 1s;
   transform-style: preserve-3d;
-
+  box-shadow: black 0px 0px 10px;
 }
 
 /* change cursor to pointer when hovering card */
