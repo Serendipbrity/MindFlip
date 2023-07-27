@@ -269,6 +269,24 @@ const resolvers = {
         throw new Error("No category found");
       }
     },
+    // delete category
+    deleteCategory: async (_, { _id }) => {
+      try {
+        // --find-- category by id
+        const category = await Category.findById(_id);
+        // if no category found throw error
+        if (!category) {
+          throw new Error("No category found");
+        }
+        // --delete-- category
+        await Category.findByIdAndDelete(_id);
+        // return deleted category to confirm
+        return category;
+      } catch {
+        console.log(err);
+        throw err;
+      }
+    },
   },
 };
 

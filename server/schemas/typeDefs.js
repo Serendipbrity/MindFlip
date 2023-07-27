@@ -76,6 +76,8 @@ const typeDefs = gql`
     addFlashCardToCategory(categoryId:ID!, frontInput: String, backInput: String, flashCardId:ID): Category
 
     updateCategory(_id: ID!, category: String): Category
+
+    deleteCategory(_id: ID!): Category
   }
 `;
 
