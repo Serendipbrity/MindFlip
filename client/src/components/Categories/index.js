@@ -25,7 +25,7 @@ const Categories = (props) => {
     setIsOpen(false);
   }
 
-  // update category function
+  // -------- update category function ------
   const [updateCategory] = useMutation(UPDATE_CATEGORY);
   const handleUpdateCategory = async () => {
     try {
@@ -42,6 +42,22 @@ const Categories = (props) => {
       console.error(err);
     }
   };
+    // -------- delete category function ------
+    const [deleteCategory] = useMutation(DELETE_CATEGORY);
+    const handleDeleteCategory = async () => {
+        try {
+            await deleteCategory({
+                variables: {
+                    id: currentCategory._id,
+                },
+            });
+            closeModal();
+            // alert user that category was deleted and re load the page so that it shows
+            window.alert("Category Deleted!").location.reload();
+        } catch (err) {
+            console.error(err);
+        }
+    };
 
   return (
     <div>
@@ -93,9 +109,9 @@ const Categories = (props) => {
           <button className="btn submit" onClick={handleUpdateCategory}>
             Update Category
           </button>
-          {/* <button id="deleteBtn" onClick={handleDeleteCategory}>
+          <button id="deleteBtn" onClick={handleDeleteCategory}>
             Delete Category
-          </button> */}
+          </button>
           <button className="closeBtn" onClick={closeModal}>
             Close
           </button>
