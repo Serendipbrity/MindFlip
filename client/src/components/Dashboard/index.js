@@ -2,7 +2,7 @@ import mesh from "../../assets/img/mesh-gradient.png";
 import Nav from "../Nav";
 import React, { useState, useContext } from "react";
 import { useQuery, useMutation } from "@apollo/client";
-import { ADD_FLASHCARD_TO_USER } from "../../utils/mutations";
+import { ADD_FLASHCARD_TO_USER, DELETE_CATEGORY, ADD_CATEGORY_TO_USER } from "../../utils/mutations";
 import FlashCards from "../FlashCards";
 import FlashCardGame from "../FlashCardGame";
 import Categories from "../Categories";
@@ -93,7 +93,7 @@ const Dashboard = ({ drawerOpen, toggleDrawer }) => {
     setFlashCardInput({ frontInput: "", backInput: "" });
   };
 
-  // categories
+  // --------- VIEW categories -------------
   const { loading: loadingCategories, data: categoriesData } =
     useQuery(VIEW_CATEGORIES);
   const [showCategories, setShowCategories] = useState(false);
@@ -102,7 +102,7 @@ const Dashboard = ({ drawerOpen, toggleDrawer }) => {
     console.log(categoriesData.viewCategories);
     setShowCategories(true);
   };
-
+  // ---------------------------------------
   return (
     <>
       {/* ---------- MindFlip Drawer Open------- */}

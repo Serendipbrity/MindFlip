@@ -1,16 +1,18 @@
 import { useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
-import { UPDATE_CATEGORY, DELETE_CATEGORY } from "../../utils/mutations";
+import { UPDATE_CATEGORY, DELETE_CATEGORY} from "../../utils/mutations";
 import { VIEW_CATEGORIES } from "../../utils/queries";
 import Modal from "react-modal";
 
 const Categories = (props) => {
+    // ---------- view cateogries --------
   const { loading: loadingViewCategories, data: dataViewCategories } =
     useQuery(VIEW_CATEGORIES);
 
   const categories = dataViewCategories?.viewCategories || [];
   const { showCategories } = props;
-
+// -------------------------------------
+    // --------- modal -------------------
   // modal starts off not showing
   const [modalIsOpen, setIsOpen] = useState(false);
   const [currentCategory, setCurrentCategory] = useState(null);
@@ -20,10 +22,11 @@ const Categories = (props) => {
   }
 
   const [input, setInput] = useState("");
-
+// close modal
   function closeModal() {
     setIsOpen(false);
   }
+// -------------------------------------
 
   // -------- update category function ------
   const [updateCategory] = useMutation(UPDATE_CATEGORY);
@@ -45,17 +48,20 @@ const Categories = (props) => {
     // -------- delete category function ------
     const [deleteCategory] = useMutation(DELETE_CATEGORY);
     const handleDeleteCategory = async () => {
-        try {
-            await deleteCategory({
-                variables: {
-                    id: currentCategory._id,
-                },
-            });
-            closeModal();
-            // alert user that category was deleted and re load the page so that it shows
-            window.alert("Category Deleted!").location.reload();
-        } catch (err) {
-            console.error(err);
+        const confirmDelete =  window.confirm("Are you sure you want to delete this category?");
+        if (confirmDelete) {
+            try {
+                await deleteCategory({
+                    variables: {
+                        id: currentCategory._id,
+                    },
+                });
+                closeModal();
+                // alert user that category was deleted and re load the page so that it shows
+                window.alert("Category Deleted!").location.reload();
+            } catch (err) {
+                console.error(err);
+            }
         }
     };
 
