@@ -26,9 +26,8 @@
 
 #gameCard {
   display: flex;
-  position: absolute;
   width:81vw;
-  height:81vh;
+  height:61vh;
   /* box-sizing: border-box; */
 }
 

@@ -103,3 +103,12 @@
     bottom: 560px;
     left: 125px;
 }
+/* update close button */
+.closeBtn {
+    color:var(--darkBlue);
+    font-size: 18px;
+    font-weight: 600;
+    position: relative;
+    bottom: 700px;
+    left: 160px;
+}
