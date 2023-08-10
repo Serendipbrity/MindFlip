@@ -96,7 +96,7 @@ const FlashCards = (props) => {
         <div>Loading...</div>
       ) : (
         //   otherwise
-        <div>
+        <div className="flashcards-section">
           {/* map over flashcards and  */}
           {flashcards.map((flashcard) => {
             //   display each flashcard in a div
