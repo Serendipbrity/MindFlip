@@ -32,6 +32,10 @@ app.use(express.json());
 if (process.env.NODE_ENV === 'production') { 
     app.use(express.static(path.join(__dirname, '../client/build')));
 }
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+});
+
 
 // start apollo server and pass in express app as middleware then start express server
 const startApolloServer = async () => { 

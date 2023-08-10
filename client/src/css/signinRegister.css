@@ -21,3 +21,14 @@
 .btnLinks:hover {
     color: var(--lightOrange);
 }
+
+#forgotpw{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 6%;
+}
+
+#member{
+    top: 0px;
+}

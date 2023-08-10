@@ -2,7 +2,7 @@ import mesh from "../../assets/img/mesh-gradient.png";
 import Nav from "../Nav";
 import React, { useState, useContext } from "react";
 import { useQuery, useMutation } from "@apollo/client";
-import { ADD_FLASHCARD_TO_USER, DELETE_CATEGORY, ADD_CATEGORY_TO_USER } from "../../utils/mutations";
+import { ADD_FLASHCARD_TO_USER, ADD_CATEGORY_TO_USER } from "../../utils/mutations";
 import FlashCards from "../FlashCards";
 import FlashCardGame from "../FlashCardGame";
 import Categories from "../Categories";
@@ -43,8 +43,9 @@ const Dashboard = ({ drawerOpen, toggleDrawer }) => {
   const handleButtonClick = () => {
     setShowFlashCards(true);
   };
-  // modal starts off not showing
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [flashCardModalIsOpen, setFlashCardModalIsOpen] = useState(false);
+  const [categoryModalIsOpen, setCategoryModalIsOpen] = useState(false);
+  
   // flash card inputs start off empty
   const [flashCardInput, setFlashCardInput] = useState({
     frontInput: "",
@@ -89,7 +90,7 @@ const Dashboard = ({ drawerOpen, toggleDrawer }) => {
     }
 
     // close modal and reset inputs after successful submission
-    setModalIsOpen(false);
+    setFlashCardModalIsOpen(false);
     setFlashCardInput({ frontInput: "", backInput: "" });
   };
 
@@ -103,6 +104,43 @@ const Dashboard = ({ drawerOpen, toggleDrawer }) => {
     setShowCategories(true);
   };
   // ---------------------------------------
+  // --------- ADD category -------------
+  const [addCategoryToUser] = useMutation(ADD_CATEGORY_TO_USER);
+  const [categoryInput, setCategoryInput] = useState("");
+  const { refetch: refetchCategories } = useQuery(VIEW_CATEGORIES);
+
+  const handleAddCategoryButtonClick = async () => { 
+    try {
+      const { data } = await addCategoryToUser({
+        variables: {
+          userId,
+          category: categoryInput,
+        },
+      });
+      window.alert("Category Added!");
+      refetchCategories();
+    } catch (err) {
+      if (err.graphQLErrors) {
+        err.graphQLErrors.map(({ message, locations, path }) =>
+          console.log(
+            `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
+          )
+        );
+      }
+
+      if (err.networkError) {
+        console.log(`[Network error]: ${err.networkError}`);
+      }
+    }
+
+    // close modal and reset inputs after successful submission
+    setCategoryModalIsOpen(false);
+    setCategoryInput("");
+  }
+  const handleCategoryInputChange = (event) => {
+    setCategoryInput(event.target.value);
+  };
+  
   return (
     <>
       {/* ---------- MindFlip Drawer Open------- */}
@@ -157,7 +195,7 @@ const Dashboard = ({ drawerOpen, toggleDrawer }) => {
               </button>
 
               <button
-                onClick={() => setModalIsOpen(true)}
+                onClick={() => setFlashCardModalIsOpen(true)}
                 className="dashButtons"
               >
                 Add Flash Card
@@ -165,8 +203,8 @@ const Dashboard = ({ drawerOpen, toggleDrawer }) => {
               {/* ADD flash card Modal */}
               <Modal
                 className="modal"
-                isOpen={modalIsOpen}
-                onRequestClose={() => setModalIsOpen(false)}
+                isOpen={flashCardModalIsOpen}
+                onRequestClose={() => setFlashCardModalIsOpen(false)}
               >
                 <div className="modal-content" id="addModal-Content">
                   <h2 className="modalTitles">Add Flash Card</h2>
@@ -195,9 +233,8 @@ const Dashboard = ({ drawerOpen, toggleDrawer }) => {
                     Submit
                   </button>
                   <button
-                    onClick={() => setModalIsOpen(false)}
-                    className="closeBtn"
-                    id="close"
+                    onClick={() => setFlashCardModalIsOpen(false)}
+                    id="flashCardCloseBtn"
                   >
                     Close
                   </button>
@@ -214,8 +251,40 @@ const Dashboard = ({ drawerOpen, toggleDrawer }) => {
                 View Categories
               </button>
               
-
-              <button className="dashButtons">Add Category</button>
+            {/* add category */}
+              <button className="dashButtons" onClick={()=>setCategoryModalIsOpen(true)}>Add Category</button>
+              <Modal
+                className="modal"
+                isOpen={categoryModalIsOpen}
+                onRequestClose={() => setCategoryModalIsOpen(false)}
+              >
+                <div className="modal-content" id="addModal-Content">
+                  <h2 className="modalTitles">Add Category</h2>
+                  <form>
+                    <h2 className="modalSubTitles">Category:</h2>
+                    <textarea
+                      className="modalTextareas"
+                      name="categoryInput"
+                      value={categoryInput}
+                      onChange={handleCategoryInputChange}
+                    />
+                  </form>
+                  <button
+                    type="button"
+                    onClick={handleAddCategoryButtonClick}
+                    className="submit btn"
+                    id="submit"
+                  >
+                    Submit
+                  </button>
+                  <button
+                    onClick={() => setCategoryModalIsOpen(false)}
+                    id="categoryCloseBtn"
+                  >
+                    Close
+                  </button>
+                </div>
+              </Modal>
             </div>
             <FlashCards
               showFlashCards={showFlashCards}

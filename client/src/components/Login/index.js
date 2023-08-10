@@ -117,12 +117,9 @@ const Login = ({ drawerOpen, toggleDrawer }) => {
               >
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
               </button>
-                <div className="text-sm">
-                  <a href="#" className="btnLinks text-white">
-                    Forgot password?
-                  </a>
-                </div>
+                
               </div>
+              
               <div className="mt-2">
                 <input
                   placeholder="Enter Password"
@@ -138,6 +135,7 @@ const Login = ({ drawerOpen, toggleDrawer }) => {
                 />
               </div>
             </div>
+    
               <button
                 type="submit"
             className="flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 btn"
@@ -146,13 +144,18 @@ const Login = ({ drawerOpen, toggleDrawer }) => {
                 Sign in
               </button>
           </form>
-
+   
           <p className="mt-10 text-center text-sm text-gray-500">
             Not a member?{" "}
-            <Link to="/register" className="text-white leading-6 btnLinks">
+            <Link to="/register" className="text-white leading-6 btnLinks" id='member'>
               Register
             </Link>
-          </p>
+        </p>
+               <div className="text-sm" id='forgotpw'>
+                  <a href="#" className="btnLinks text-white">
+                    Forgot password?
+                  </a>
+                </div>
         </div>
       </div>
   );
