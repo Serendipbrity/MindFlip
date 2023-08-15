@@ -59,7 +59,10 @@ export const ADD_CATEGORY_TO_USER = gql`
 mutation AddCategoryToUser($userId: ID!, $category: String!) {
   addCategoryToUser(userId: $userId, category: $category) {
     _id
-    category
+    categories {
+      _id
+      category
+    }
   }
 }`;
 

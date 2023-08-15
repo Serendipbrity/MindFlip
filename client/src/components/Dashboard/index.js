@@ -2,7 +2,10 @@ import mesh from "../../assets/img/mesh-gradient.png";
 import Nav from "../Nav";
 import React, { useState, useContext } from "react";
 import { useQuery, useMutation } from "@apollo/client";
-import { ADD_FLASHCARD_TO_USER, ADD_CATEGORY_TO_USER } from "../../utils/mutations";
+import {
+  ADD_FLASHCARD_TO_USER,
+  ADD_CATEGORY_TO_USER,
+} from "../../utils/mutations";
 import FlashCards from "../FlashCards";
 import FlashCardGame from "../FlashCardGame";
 import Categories from "../Categories";
@@ -13,6 +16,9 @@ import "../../css/modals.css";
 
 const Dashboard = ({ drawerOpen, toggleDrawer }) => {
   Modal.setAppElement("#root");
+
+  // ------ only show current users flash cards / categories ------
+
   // get token from local storage. We need this to get the user id so we can pull the users flash cards
   const idToken = localStorage.getItem("id_token");
 
@@ -23,14 +29,24 @@ const Dashboard = ({ drawerOpen, toggleDrawer }) => {
 
   // Now get the userId
   const userId = payload.id;
+  // ----------------------------------------------------------------
+   // ----------------- View Flash Cards -----------------------------
+  
   // flash cards start off not showing
   const [showFlashCards, setShowFlashCards] = useState(false);
+
+  // when clicking the button, show flash cards
+  const handleButtonClick = () => {
+    setShowFlashCards(true);
+  };
   const { loading: loadingFlashCards, data: dataFlashCards } = useQuery(
     VIEW_FLASHCARDS,
     {
       variables: { userId },
     }
   );
+// ----------------------------------------------------------------
+  // --------- begin game functionality ------------------------------
   // game starts off not showing
   const [gameStarted, setGameStarted] = useState(false);
   const startGame = () => {
@@ -39,13 +55,9 @@ const Dashboard = ({ drawerOpen, toggleDrawer }) => {
     setGameStarted(true);
   };
 
-  // when clicking the button, show flash cards
-  const handleButtonClick = () => {
-    setShowFlashCards(true);
-  };
+  // ----------------------------------------------------------------
   const [flashCardModalIsOpen, setFlashCardModalIsOpen] = useState(false);
-  const [categoryModalIsOpen, setCategoryModalIsOpen] = useState(false);
-  
+
   // flash card inputs start off empty
   const [flashCardInput, setFlashCardInput] = useState({
     frontInput: "",
@@ -64,7 +76,7 @@ const Dashboard = ({ drawerOpen, toggleDrawer }) => {
   };
 
   const handleAddFlashCard = async () => {
-    const { frontInput, backInput } = flashCardInput; // Assuming you have a form controlling these values
+    const { frontInput, backInput } = flashCardInput;
 
     try {
       const { dataFlashCards } = await addFlashCardToUser({
@@ -89,27 +101,42 @@ const Dashboard = ({ drawerOpen, toggleDrawer }) => {
       }
     }
 
-    // close modal and reset inputs after successful submission
+    // close modal after successful submission
     setFlashCardModalIsOpen(false);
+    // reset inputs after successful submission
     setFlashCardInput({ frontInput: "", backInput: "" });
   };
 
-  // --------- VIEW categories -------------
-  const { loading: loadingCategories, data: categoriesData } =
-    useQuery(VIEW_CATEGORIES);
+  // --------- VIEW categories ---------------------------
+  const { loading: loadingCategories, data: categoriesData, error:categoriesError } =
+    useQuery(
+      VIEW_CATEGORIES, {
+      variables: { userId },
+    });
+  // start off not showing categories
   const [showCategories, setShowCategories] = useState(false);
 
+  // when clicking the button.....
   const handleCategoryButtonClick = () => {
+    console.log({loadingCategories, categoriesData, categoriesError})
+  if (loadingCategories) {
+    console.log("Categories are still loading...");
+  } else if (categoriesError) {
+    console.error("An error occurred:", categoriesError);
+  } else if (categoriesData && categoriesData.viewCategories) {
     console.log(categoriesData.viewCategories);
     setShowCategories(true);
-  };
-  // ---------------------------------------
-  // --------- ADD category -------------
+  } else {
+    console.log("Categories not loaded or an error occurred");
+  }
+};
+  // ------------------------------------------------------
+  // --------- ADD category ---------------------------
   const [addCategoryToUser] = useMutation(ADD_CATEGORY_TO_USER);
-  const [categoryInput, setCategoryInput] = useState("");
+  const [categoryModalIsOpen, setCategoryModalIsOpen] = useState(false);
   const { refetch: refetchCategories } = useQuery(VIEW_CATEGORIES);
 
-  const handleAddCategoryButtonClick = async () => { 
+  const handleAddCategoryButtonClick = async () => {
     try {
       const { data } = await addCategoryToUser({
         variables: {
@@ -118,6 +145,7 @@ const Dashboard = ({ drawerOpen, toggleDrawer }) => {
         },
       });
       window.alert("Category Added!");
+      // refetch (refresh) categories to show new category
       refetchCategories();
     } catch (err) {
       if (err.graphQLErrors) {
@@ -133,14 +161,17 @@ const Dashboard = ({ drawerOpen, toggleDrawer }) => {
       }
     }
 
-    // close modal and reset inputs after successful submission
+    // close modal after successful submission
     setCategoryModalIsOpen(false);
+    // reset inputs after successful submission
     setCategoryInput("");
-  }
+  };
+  // ------------------------------------------------------
+  const [categoryInput, setCategoryInput] = useState("");
   const handleCategoryInputChange = (event) => {
     setCategoryInput(event.target.value);
   };
-  
+
   return (
     <>
       {/* ---------- MindFlip Drawer Open------- */}
@@ -200,7 +231,7 @@ const Dashboard = ({ drawerOpen, toggleDrawer }) => {
               >
                 Add Flash Card
               </button>
-              {/* ADD flash card Modal */}
+              {/* --------- Add flash card Modal ------------ */}
               <Modal
                 className="modal"
                 isOpen={flashCardModalIsOpen}
@@ -240,6 +271,7 @@ const Dashboard = ({ drawerOpen, toggleDrawer }) => {
                   </button>
                 </div>
               </Modal>
+              {/* ----------------------------------- */}
             </div>
             <div className="categories section">
               <div className="cardTitle"> Categories</div>
@@ -250,9 +282,15 @@ const Dashboard = ({ drawerOpen, toggleDrawer }) => {
               >
                 View Categories
               </button>
-              
-            {/* add category */}
-              <button className="dashButtons" onClick={()=>setCategoryModalIsOpen(true)}>Add Category</button>
+
+              {/* add category */}
+              <button
+                className="dashButtons"
+                onClick={() => setCategoryModalIsOpen(true)}
+              >
+                Add Category
+              </button>
+              {/* ---------- Add Category Modal --------- */}
               <Modal
                 className="modal"
                 isOpen={categoryModalIsOpen}
@@ -285,6 +323,7 @@ const Dashboard = ({ drawerOpen, toggleDrawer }) => {
                   </button>
                 </div>
               </Modal>
+              {/* -------------------------------------- */}
             </div>
             <FlashCards
               showFlashCards={showFlashCards}
@@ -292,10 +331,10 @@ const Dashboard = ({ drawerOpen, toggleDrawer }) => {
               handleButtonClick={handleButtonClick}
             />
             {showCategories &&
-                Array.isArray(categoriesData?.viewCategories) &&
-                categoriesData.viewCategories.length > 0 && (
-                  <Categories categories={categoriesData.viewCategories} />
-                )}
+              Array.isArray(categoriesData?.viewCategories) &&
+              categoriesData.viewCategories.length > 0 && (
+                <Categories categories={categoriesData.viewCategories} userId={userId}/>
+              )}
           </div>
         </div>
       </div>

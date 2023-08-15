@@ -48,12 +48,12 @@ const resolvers = {
       }
     },
     // view all categories
-    viewCategories: async () => {
+    viewCategories: async (_,{userId}) => {
       try {
-        const categories = await Category.find().populate("flashcards");
+        const categories = await Category.find({userId}).populate("flashcards");
         return categories;
       } catch (err) {
-        console.log(err);
+        console.log("Error fetching categories",err);
         throw new Error("No categories found");
       }
     }
@@ -203,7 +203,7 @@ const resolvers = {
       }
     },
     // add category to user
-    addCategoryToUser: async (_, { userId, category }) => { 
+    addCategoryToUser: async (_, { userId, category }, context) => { 
       try {
         const newCategory = await Category.create({category});
         const user = await User.findByIdAndUpdate(

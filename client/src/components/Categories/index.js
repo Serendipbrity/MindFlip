@@ -4,13 +4,15 @@ import { UPDATE_CATEGORY, DELETE_CATEGORY} from "../../utils/mutations";
 import { VIEW_CATEGORIES } from "../../utils/queries";
 import Modal from "react-modal";
 
-const Categories = (props) => {
+const Categories = ({userId}) => {
     // ---------- view cateogries --------
   const { loading: loadingViewCategories, data: dataViewCategories } =
-    useQuery(VIEW_CATEGORIES);
+    useQuery(VIEW_CATEGORIES, {
+      variables: { userId }
+    });
 
   const categories = dataViewCategories?.viewCategories || [];
-  const { showCategories } = props;
+  // const { showCategories } = props;
 // -------------------------------------
     // --------- modal -------------------
   // modal starts off not showing
@@ -45,6 +47,7 @@ const Categories = (props) => {
       console.error(err);
     }
   };
+    // -------------------------------------
     // -------- delete category function ------
     const [deleteCategory] = useMutation(DELETE_CATEGORY);
     const handleDeleteCategory = async () => {

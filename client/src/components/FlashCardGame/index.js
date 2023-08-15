@@ -4,7 +4,7 @@ import "../../css/flashcards.css";
 
 const FlashCardGame = ({ flashCards }) => {
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
-  const [isFlipped, setIsFlipped] = useState(""); // Change this to a string
+  const [isFlipped, setIsFlipped] = useState(""); 
   const [answeredCards, setAnsweredCards] = useState([]);
 
   const handlers = useSwipeable({
@@ -41,15 +41,22 @@ const FlashCardGame = ({ flashCards }) => {
     if (showGameOver) {
       const timer = setTimeout(() => {
         setShowGameOver(false);
-      }, 3000);
+      }, 7000);
       return () => clearTimeout(timer);
     }
   }, [showGameOver]);
+
+ // score
+ const correctAnswers = answeredCards.filter((card) => card.knewAnswer).length;
+ const totalQuestions = answeredCards.length;
+ const score = (correctAnswers / totalQuestions) * 100;
 
   if (showGameOver) {
     return (
       <div id="gameOverContainer">
         <div id="gameOver">Game Over!</div>
+        <div id="score">Score: {correctAnswers} / {totalQuestions}</div>
+        <div id="score">{score}%</div>
       </div>
     );
   }
@@ -63,6 +70,8 @@ const FlashCardGame = ({ flashCards }) => {
   const handleFlip = () => {
     setIsFlipped(isFlipped === "" ? "is-flipped" : ""); // Toggle between '' and 'is-flipped'
   };
+
+ 
 
   return (
     <div>

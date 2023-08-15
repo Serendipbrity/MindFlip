@@ -54,8 +54,8 @@ export const VIEW_FLASHCARD = gql`
 `;
 
 export const VIEW_CATEGORIES = gql`
-query Query {
-  viewCategories {
+query Query($userId: ID!) {
+  viewCategories(userId: $userId) {
     _id
     category
   }

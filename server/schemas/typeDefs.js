@@ -35,7 +35,7 @@ const typeDefs = gql`
     viewUser(_id:ID): User
     viewFlashCards(userId:ID!):[FlashCards]
     viewFlashCard: FlashCards
-    viewCategories: [Category]
+    viewCategories(userId:ID!): [Category]
   }
   type Mutation {
     addUser(username: String!, email: String!, password: String!): User

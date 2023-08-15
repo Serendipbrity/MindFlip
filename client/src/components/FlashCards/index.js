@@ -9,12 +9,13 @@ import Alert from '../Alert';
 
 
 const FlashCards = (props) => {
-  const [updateFlashCard] = useMutation(UPDATE_FLASHCARD);
-  const [deleteFlashCard] = useMutation(DELETE_FLASHCARD);
 
+// specify which flashcard to show / alter
+  const [currentFlashCard, setCurrentFlashCard] = useState(null);
+
+// ------------- modal ---------------------
   // modal starts off not showing
   const [modalIsOpen, setIsOpen] = useState(false);
-  const [currentFlashCard, setCurrentFlashCard] = useState(null);
 
   // flash card inputs start off empty
   const [frontInput, setFrontInput] = useState("");
@@ -30,7 +31,9 @@ const FlashCards = (props) => {
   function closeModal() {
     setIsOpen(false);
   }
-  // update flash card function
+  // -------------------------------------
+  //---------- update flash card function ---------
+  const [updateFlashCard] = useMutation(UPDATE_FLASHCARD);
   const handleUpdateFlashCard = async () => {
     try {
       await updateFlashCard({
@@ -47,8 +50,9 @@ const FlashCards = (props) => {
       console.error(err);
     }
   };
-
-  // delete flash card function
+// -------------------------------------
+  // ---- delete flash card function ----------
+  const [deleteFlashCard] = useMutation(DELETE_FLASHCARD);
   const handleDeleteFlashCard = async () => {
     const confirmDelete = window.confirm('Are you sure you want to delete this flash card?');
     if (confirmDelete) {
@@ -68,11 +72,15 @@ const FlashCards = (props) => {
       }
     }
   };
+  // -------------------------------------
+  // ---------- view flash cards --------
   const { loading, data } = useQuery(VIEW_FLASHCARDS);
   // viewFlashCards is from the query / graphql
   const flashcards = props.flashCards || [];
   const { showFlashCards } = props;
-
+// -------------------------------------
+  // ------ flip flash card functionality ------------
+  
   // Declare a new state variable for flip action
   const [isFlipped, setIsFlipped] = useState({});
 
@@ -87,7 +95,7 @@ const FlashCards = (props) => {
       [id]: !prevState[id],
     }));
   };
-
+// -------------------------------------
   return (
     <div>
       {/* if loading data */}
