@@ -1,0 +1,24 @@
+#statsParent{
+    background-image: url("../assets/img/mesh-gradient.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    width: 100%;
+}
+
+#progress {
+    display: flex;
+    justify-content: center;
+    color: var(--darkBlue);
+    font-weight: 500;
+    font-size: 30px;
+    padding:25px;
+}
+
+#lineChart{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    padding: 7%;
+}

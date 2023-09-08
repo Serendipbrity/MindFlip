@@ -10,7 +10,6 @@ const Categories = ({userId}) => {
     useQuery(VIEW_CATEGORIES, {
       variables: { userId }
     });
-
   const categories = dataViewCategories?.viewCategories || [];
   // const { showCategories } = props;
 // -------------------------------------
@@ -22,7 +21,7 @@ const Categories = ({userId}) => {
     setCurrentCategory(category);
     setIsOpen(true);
   }
-
+// input starts off as an empty string
   const [input, setInput] = useState("");
 // close modal
   function closeModal() {
@@ -48,6 +47,7 @@ const Categories = ({userId}) => {
     }
   };
     // -------------------------------------
+  
     // -------- delete category function ------
     const [deleteCategory] = useMutation(DELETE_CATEGORY);
     const handleDeleteCategory = async () => {

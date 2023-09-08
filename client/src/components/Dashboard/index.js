@@ -111,13 +111,14 @@ const Dashboard = ({ drawerOpen, toggleDrawer }) => {
   const { loading: loadingCategories, data: categoriesData, error:categoriesError } =
     useQuery(
       VIEW_CATEGORIES, {
-      variables: { userId },
+        variables: { userId },
     });
   // start off not showing categories
   const [showCategories, setShowCategories] = useState(false);
 
   // when clicking the button.....
   const handleCategoryButtonClick = () => {
+    console.log(userId)
     console.log({loadingCategories, categoriesData, categoriesError})
   if (loadingCategories) {
     console.log("Categories are still loading...");
