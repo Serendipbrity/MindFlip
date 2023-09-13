@@ -15,7 +15,6 @@ import {
 import "../../css/stats.css";
 import MindFlip from "../MindFlip";
 const Stats = () => {
-  // const data = [{name: 'Page A', uv: 400, pv: 2400, amt: 2400},];
 
   // Inside Stats component
   const [scores, setScores] = useState([]);
@@ -34,15 +33,20 @@ const Stats = () => {
 
   return (
     <>
+      {/* title */}
       <MindFlip />
       <div id="statsParent">
         <h1 id="progress">Your Progress</h1>
         <div id="lineChart">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={data}>
+              {/* progress data line */}
               <Line id="lines" type="monotone" dataKey="uv" stroke="#023047" />
+              {/* center line */}
               <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-              <XAxis dataKey="name" stroke="#023047"tickMargin={17}/>
+              {/* hosizontal line */}
+              <XAxis dataKey="name" stroke="#023047" tickMargin={17} />
+              {/* vertical line */}
               <YAxis stroke="#023047" id="yAxis" tickMargin={20}/>
             </LineChart>
           </ResponsiveContainer>

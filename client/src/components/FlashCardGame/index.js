@@ -48,15 +48,25 @@ const FlashCardGame = ({ flashCards }) => {
   // start off by not showing the "Game Over"
   const [showGameOver, setShowGameOver] = useState(false);
 
-  // ----- Game Over Effect ------------------
-  useEffect(() => {
-    // if the current index equals the last flash card
-    if (currentCardIndex === flashCards.length) {
-      setShowGameOver(true); // show "Game Over"
-      setGameStarted(false); // hide Large flash card showing for the game
-    }
-  }, [currentCardIndex, flashCards.length]);
-  // --------------------------------------
+// ----- Game Over Effect ------------------
+useEffect(() => {
+  if (currentCardIndex === flashCards.length) {
+    const finalCorrect = answeredCards.filter((card) => card.knewAnswer).length;
+    const finalTotal = answeredCards.length;
+    const finalSc = (finalCorrect / finalTotal) * 100;
+
+    setFinalCorrectAnswers(finalCorrect);
+    setFinalTotalQuestions(finalTotal);
+    setFinalScore(finalSc);
+    
+    setShowGameOver(true);
+    setGameStarted(false);
+    setCurrentCardIndex(0);
+    setAnsweredCards([]);
+  }
+}, [currentCardIndex, flashCards.length, answeredCards]);
+
+
 
   // ----- Timer for Game Over ------------------
   useEffect(() => {
@@ -104,21 +114,23 @@ const FlashCardGame = ({ flashCards }) => {
   }, [showGameOver, correctAnswers]);
 
   // --------- Game Over -------------
+  const [finalCorrectAnswers, setFinalCorrectAnswers] = useState(0);
+const [finalTotalQuestions, setFinalTotalQuestions] = useState(0);
+const [finalScore, setFinalScore] = useState(0);
+
   // if the game is over
   if (showGameOver) {
     return (
-      // show the game is over
       <div id="gameOverContainer">
         <div id="gameOver">Game Over!</div>
-        {/* show the score */}
         <div id="score">
-          Score: {correctAnswers} / {totalQuestions}
+          Score: {finalCorrectAnswers} / {finalTotalQuestions} 
         </div>
-        {/* show the percent correct */}
-        <div id="score">{score}%</div>
+        <div id="score">{finalScore}%</div>  
       </div>
     );
   }
+  
   // --------------------------------------
 
   // --------- Show Begin Game Button -------------
