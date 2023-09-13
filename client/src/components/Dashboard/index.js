@@ -35,7 +35,7 @@ const Dashboard = ({ drawerOpen, toggleDrawer }) => {
   // flash cards start off not showing
   const [showFlashCards, setShowFlashCards] = useState(false);
 
-  // when clicking the button, show flash cards
+  // when clicking the view flash cards button, show flash cards
   const handleButtonClick = () => {
     setShowFlashCards(true);
   };
@@ -331,11 +331,12 @@ const Dashboard = ({ drawerOpen, toggleDrawer }) => {
               flashCards={dataFlashCards?.viewFlashCards}
               handleButtonClick={handleButtonClick}
             />
-            {showCategories &&
+            {/* {showCategories &&
               Array.isArray(categoriesData?.viewCategories) &&
               categoriesData.viewCategories.length > 0 && (
-                <Categories categories={categoriesData.viewCategories} userId={userId}/>
-              )}
+                <Categories categories={categoriesData.viewCategories} />
+              )} */}
+            <Categories showCategories={showCategories} categories={categoriesData?.viewCategories} handleCategoryButtonClick={handleCategoryButtonClick} userId={ userId} />
           </div>
         </div>
       </div>

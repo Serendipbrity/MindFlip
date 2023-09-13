@@ -11,7 +11,7 @@ const Categories = ({userId}) => {
       variables: { userId }
     });
   const categories = dataViewCategories?.viewCategories || [];
-  // const { showCategories } = props;
+console.log("USER Id "+userId);
 // -------------------------------------
     // --------- modal -------------------
   // modal starts off not showing

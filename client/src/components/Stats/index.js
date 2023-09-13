@@ -3,27 +3,25 @@ import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tool
 import '../../css/stats.css';
 
 const Stats = () => {
-  const data = [{name: 'Page A', uv: 400, pv: 2400, amt: 2400},];
+  // const data = [{name: 'Page A', uv: 400, pv: 2400, amt: 2400},];
 
-//   const [scores, setScores] = useState([]);
+// Inside Stats component
+const [scores, setScores] = useState([]);
 
-//   useEffect(() => {
-//     const savedScores = JSON.parse(localStorage.getItem('scores')) || [];
-//     setScores(savedScores);
-//   }, []);
+useEffect(() => {
+  const savedScores = JSON.parse(localStorage.getItem('scores')) || [];
+  setScores(savedScores);
+}, []);
 
-//   const data = {
-//     labels: scores.map(score => new Date(score.date).toLocaleDateString()), // Dates
-//     datasets: [
-//       {
-//         label: 'Progress',
-//         data: scores.map(score => score.score), 
-//         fill: false,
-//         backgroundColor: 'blue',
-//         borderColor: 'blue',
-//       },
-//     ],
-//   };
+const data = scores.map(score => ({
+  name: new Date(score.date).toLocaleDateString(),
+  uv: score.score, 
+  pv: score.score, 
+  amt: score.score 
+}));
+
+// Your existing LineChart component
+
 
 
   return (

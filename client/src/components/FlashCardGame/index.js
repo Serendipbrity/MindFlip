@@ -10,7 +10,6 @@ const FlashCardGame = ({ flashCards }) => {
   // answered cards starts out as an empty array
   const [answeredCards, setAnsweredCards] = useState([]);
 
-
   // ----- Swipable Cards Effect ------------------
   const handlers = useSwipeable({
     // if they swipe left, they didnt know the answer to the card
@@ -20,9 +19,9 @@ const FlashCardGame = ({ flashCards }) => {
     preventDefaultTouchmoveEvent: true,
     trackMouse: true,
   });
-// -------------------------------------------------
+  // -------------------------------------------------
 
-// --- Keep track of the cards they answered ----------------
+  // --- Keep track of the cards they answered ----------------
   const answerCard = (knewAnswer) => {
     // Add card to answered cards array
     setAnsweredCards([
@@ -40,13 +39,13 @@ const FlashCardGame = ({ flashCards }) => {
       // Reset classes for swipe animations
       setIsFlipped(false);
       // Adjust delay to match animation duration
-    }, 1000); 
+    }, 1000);
   };
-// -------------------------------------------------
-  
+  // -------------------------------------------------
+
   // start off by not showing the game (first flash card)
   const [gameStarted, setGameStarted] = useState(false);
-  // start off by not showing the "Game Over" 
+  // start off by not showing the "Game Over"
   const [showGameOver, setShowGameOver] = useState(false);
 
   // ----- Game Over Effect ------------------
@@ -57,7 +56,7 @@ const FlashCardGame = ({ flashCards }) => {
       setGameStarted(false); // hide Large flash card showing for the game
     }
   }, [currentCardIndex, flashCards.length]);
-// --------------------------------------
+  // --------------------------------------
 
   // ----- Timer for Game Over ------------------
   useEffect(() => {
@@ -73,18 +72,37 @@ const FlashCardGame = ({ flashCards }) => {
       return () => clearTimeout(timer);
     }
   }, [showGameOver]);
-// --------------------------------------
-  
- // -------- Score ---------------------------
-  
+  // --------------------------------------
+
+  // -------- Score ---------------------------
+
   // the correct answers are the answered cards, filtered per card by the known answer then taking the length of the array
   const correctAnswers = answeredCards.filter((card) => card.knewAnswer).length;
   // the total number of questions are the length of the array of answered cards
   const totalQuestions = answeredCards.length;
   // the score percentage is the correct answers divided by the total questions multiplied by 100
- const score = (correctAnswers / totalQuestions) * 100;
-// --------------------------------------
-  
+  const score = (correctAnswers / totalQuestions) * 100;
+  // --------------------------------------
+  // -------- Save Score ---------------------------
+  useEffect(() => {
+    if (showGameOver) {
+      // Get existing scores from local storage or initialize an empty array
+      const existingScores = JSON.parse(localStorage.getItem("scores")) || [];
+
+      // Add the new score
+      const newScore = {
+        score: correctAnswers,
+        date: new Date().toISOString(),
+      };
+
+      // Save back to local storage
+      localStorage.setItem(
+        "scores",
+        JSON.stringify([...existingScores, newScore])
+      );
+    }
+  }, [showGameOver, correctAnswers]);
+
   // --------- Game Over -------------
   // if the game is over
   if (showGameOver) {
@@ -93,31 +111,37 @@ const FlashCardGame = ({ flashCards }) => {
       <div id="gameOverContainer">
         <div id="gameOver">Game Over!</div>
         {/* show the score */}
-        <div id="score">Score: {correctAnswers} / {totalQuestions}</div>
+        <div id="score">
+          Score: {correctAnswers} / {totalQuestions}
+        </div>
         {/* show the percent correct */}
         <div id="score">{score}%</div>
       </div>
     );
   }
-// --------------------------------------
+  // --------------------------------------
 
   // --------- Show Begin Game Button -------------
   // if the game isnt started
   if (!gameStarted) {
     return (
       // show the button to Begin Game
-      <button onClick={() => setGameStarted(true)} className="btn section row begin">Begin Game</button>
+      <button
+        onClick={() => setGameStarted(true)}
+        className="btn section row begin"
+      >
+        Begin Game
+      </button>
     );
   }
-// --------------------------------------
-  
+  // --------------------------------------
+
   // ----- flip the card ------------------
   const handleFlip = () => {
     // Toggle between '' (no class added / not flipped) and 'is-flipped' class (flipped)
-    setIsFlipped(isFlipped === "" ? "is-flipped" : ""); 
+    setIsFlipped(isFlipped === "" ? "is-flipped" : "");
   };
-// --------------------------------------
- 
+  // --------------------------------------
 
   return (
     // extra div necessary for size of cards and diagnal swiping
@@ -139,7 +163,7 @@ const FlashCardGame = ({ flashCards }) => {
         {/* Back */}
         <div className="card__face card__face--back">
           {flashCards && flashCards[currentCardIndex]?.backInput}
-           {/* when clicking the Exit Game, end the game */}
+          {/* when clicking the Exit Game, end the game */}
           <button className="exitGame" onClick={() => setGameStarted(false)}>
             Exit Game
           </button>
