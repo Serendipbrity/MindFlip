@@ -14,15 +14,18 @@
     color: var(--darkBlue);
     font-weight: 500;
     font-size: 30px;
-    padding:6%;
+    padding-top: 2%;
 }
 
 #lineChart {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: auto;
     padding: 6%;
     width: 100%;
+    height: 70%;
   }
   
+/* #yAxis {
+    padding: 20px;
+} */

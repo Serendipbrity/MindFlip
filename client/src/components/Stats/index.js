@@ -1,17 +1,19 @@
 import React, { useState, useEffect, useRef } from "react";
 import {
   ResponsiveContainer,
+  AreaChart,
+  Area,
   XAxis,
   YAxis,
   CartesianGrid,
   Tooltip,
+  ReferenceLine,
   LineChart,
   Legend,
   Line,
 } from "recharts";
-import MindFlip from "../MindFlip";
 import "../../css/stats.css";
-
+import MindFlip from "../MindFlip";
 const Stats = () => {
   // const data = [{name: 'Page A', uv: 400, pv: 2400, amt: 2400},];
 
@@ -30,8 +32,6 @@ const Stats = () => {
     amt: score.score,
   }));
 
-  // Your existing LineChart component
-
   return (
     <>
       <MindFlip />
@@ -40,13 +40,10 @@ const Stats = () => {
         <div id="lineChart">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={data}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Line type="monotone" dataKey="pv" stroke="#8884d8" />
-              <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
+              <Line id="lines" type="monotone" dataKey="uv" stroke="#023047" />
+              <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
+              <XAxis dataKey="name" stroke="#023047"tickMargin={17}/>
+              <YAxis stroke="#023047" id="yAxis" tickMargin={20}/>
             </LineChart>
           </ResponsiveContainer>
         </div>
