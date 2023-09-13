@@ -10,7 +10,7 @@ import Features from './components/Features';
 import Error from './components/Error';
 import { useState } from 'react';
 
-import Auth from './utils/auth'; 
+// import Auth from './utils/auth'; 
 
 const client = new ApolloClient({
   uri: '/graphql',

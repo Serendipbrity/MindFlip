@@ -6,19 +6,23 @@
     width: 100%;
 }
 
+/* "Your Progress" */
 #progress {
     display: flex;
     justify-content: center;
+    align-items: center;
     color: var(--darkBlue);
     font-weight: 500;
     font-size: 30px;
-    padding:25px;
+    padding:6%;
 }
 
-#lineChart{
+#lineChart {
     display: flex;
     justify-content: center;
     align-items: center;
     margin: auto;
-    padding: 7%;
-}
+    padding: 6%;
+    width: 100%;
+  }
+  
