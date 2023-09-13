@@ -101,7 +101,8 @@ useEffect(() => {
 
       // Add the new score
       const newScore = {
-        score: correctAnswers,
+        score: finalCorrectAnswers,
+        total: finalTotalQuestions,
         date: new Date().toISOString(),
       };
 
