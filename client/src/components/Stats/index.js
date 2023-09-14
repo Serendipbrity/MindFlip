@@ -62,9 +62,9 @@ const Stats = () => {
                 id="lines"
                 type="monotone"
                 dataKey="total"
-                stroke="#fb8500"
-                fill="#ffb703"
-                // fillOpacity={1}
+                fill="#fb8500"
+                stroke="#ffb703"
+                fillOpacity={.7}
               />
               <Area
                 id="lines"
