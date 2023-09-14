@@ -6,6 +6,7 @@ import {
   CartesianGrid,
   LineChart,
   Line,
+  Tooltip,
 } from "recharts";
 import "../../css/stats.css";
 import MindFlip from "../MindFlip";
@@ -20,9 +21,9 @@ const Stats = () => {
 
   const data = scores.map((score) => ({
     name: new Date(score.date).toLocaleDateString(),
-    uv: score.score,
-    pv: score.score,
-    amt: score.score,
+    score: score.score,
+    total: score.total,
+    // amt: score.score,
   }));
 
   console.log(data);
@@ -56,13 +57,15 @@ const Stats = () => {
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={newData}>
               {/* progress data line */}
-              <Line id="lines" type="monotone" dataKey="uv" stroke="#023047" />
+              <Line id="lines" type="monotone" dataKey="total" stroke="#fb8500" />
+              <Line id="lines" type="monotone" dataKey="score" stroke="#023047" />
               {/* center line */}
               <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
               {/* hosizontal line */}
               <XAxis dataKey="name" stroke="#023047" tickMargin={17} />
               {/* vertical line */}
               <YAxis stroke="#023047" id="yAxis" tickMargin={20} />
+              <Tooltip />
             </LineChart>
           </ResponsiveContainer>
         </div>
