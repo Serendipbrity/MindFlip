@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import {
+  Legend,
   ResponsiveContainer,
   XAxis,
   YAxis,
   CartesianGrid,
-  LineChart,
-  Line,
   Tooltip,
+  Area,
+  ComposedChart,
 } from "recharts";
 import "../../css/stats.css";
 import MindFlip from "../MindFlip";
@@ -55,10 +56,24 @@ const Stats = () => {
         <h1 id="progress">Your Progress</h1>
         <div id="lineChart">
           <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={newData}>
+            <ComposedChart data={newData}>
               {/* progress data line */}
-              <Line id="lines" type="monotone" dataKey="total" stroke="#fb8500" />
-              <Line id="lines" type="monotone" dataKey="score" stroke="#023047" />
+              <Area
+                id="lines"
+                type="monotone"
+                dataKey="total"
+                stroke="#fb8500"
+                fill="#ffb703"
+                // fillOpacity={1}
+              />
+              <Area
+                id="lines"
+                type="monotone"
+                dataKey="score"
+                fill="#023047"
+                stroke="#219ebc"
+                fillOpacity={1}
+              />
               {/* center line */}
               <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
               {/* hosizontal line */}
@@ -66,8 +81,33 @@ const Stats = () => {
               {/* vertical line */}
               <YAxis stroke="#023047" id="yAxis" tickMargin={20} />
               <Tooltip />
-            </LineChart>
+            </ComposedChart>
           </ResponsiveContainer>
+          <Legend
+            wrapperStyle={{
+              bottom: 50,
+              right: 50,
+              backgroundColor: "#f5f5f5",
+              border: "1px solid #d5d5d5",
+              borderRadius: 3,
+              lineHeight: "30px",
+              width: "30%",
+            }}
+            payload={[
+              {
+                value: "Total Cards",
+                type: "line",
+                id: "total",
+                color: "#fb8500",
+              },
+              {
+                value: "Score",
+                type: "line",
+                id: "score",
+                color: "#023047"
+              },
+            ]}
+          />
         </div>
       </div>
     </>
