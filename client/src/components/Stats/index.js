@@ -10,7 +10,6 @@ import {
 import "../../css/stats.css";
 import MindFlip from "../MindFlip";
 const Stats = () => {
-
   // Inside Stats component
   const [scores, setScores] = useState([]);
 
@@ -28,25 +27,24 @@ const Stats = () => {
 
   console.log(data);
 
-// Initialize an object to store the last occurrence index of each date.
-const lastOccurrences = {};
+  // Initialize an object to store the last occurrence index of each date.
+  const lastOccurrences = {};
 
-// Loop through the data array.
-for (let i = 0; i < data.length; i++) {
-  // Save the index of the last occurrence for each date in lastOccurrences object.
-  lastOccurrences[data[i].name] = i;
-}
+  // Loop through the data array.
+  for (let i = 0; i < data.length; i++) {
+    // Save the index of the last occurrence for each date in lastOccurrences object.
+    lastOccurrences[data[i].name] = i;
+  }
 
-// Create a new array by mapping over the original data array.
-const newData = data.map((entry, index) => {
-  // Return a new object with the same properties as the original object.
-  // Replace the 'name' field with an empty string if it's not the last occurrence.
-  return {
-    ...entry,
-    name: lastOccurrences[entry.name] === index ? entry.name : ''
-  };
-});
-
+  // Create a new array by mapping over the original data array.
+  const newData = data.map((entry, index) => {
+    // Return a new object with the same properties as the original object.
+    // Replace the 'name' field with an empty string if it's not the last occurrence.
+    return {
+      ...entry,
+      name: lastOccurrences[entry.name] === index ? entry.name : "",
+    };
+  });
 
   return (
     <>
@@ -64,7 +62,7 @@ const newData = data.map((entry, index) => {
               {/* hosizontal line */}
               <XAxis dataKey="name" stroke="#023047" tickMargin={17} />
               {/* vertical line */}
-              <YAxis stroke="#023047" id="yAxis" tickMargin={20}/>
+              <YAxis stroke="#023047" id="yAxis" tickMargin={20} />
             </LineChart>
           </ResponsiveContainer>
         </div>

@@ -5,7 +5,7 @@ const MindFlip = ({ drawerOpen, toggleDrawer }) => {
 //   const toggleDrawer = () => setDrawerOpen(!drawerOpen);
   return (
     <>
-       <div className="drawer">
+       <div className="drawer" style={{ zIndex: 4 }}>
         <input
           id="my-drawer"
           type="checkbox"
