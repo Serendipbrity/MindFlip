@@ -53,7 +53,7 @@ useEffect(() => {
   if (currentCardIndex === flashCards.length) {
     const finalCorrect = answeredCards.filter((card) => card.knewAnswer).length;
     const finalTotal = answeredCards.length;
-    const finalSc = (finalCorrect / finalTotal) * 100;
+    const finalSc = Math.round((finalCorrect / finalTotal) * 100);
 
     setFinalCorrectAnswers(finalCorrect);
     setFinalTotalQuestions(finalTotal);

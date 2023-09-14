@@ -1,15 +1,10 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import {
   ResponsiveContainer,
-  AreaChart,
-  Area,
   XAxis,
   YAxis,
   CartesianGrid,
-  Tooltip,
-  ReferenceLine,
   LineChart,
-  Legend,
   Line,
 } from "recharts";
 import "../../css/stats.css";
@@ -31,6 +26,28 @@ const Stats = () => {
     amt: score.score,
   }));
 
+  console.log(data);
+
+// Initialize an object to store the last occurrence index of each date.
+const lastOccurrences = {};
+
+// Loop through the data array.
+for (let i = 0; i < data.length; i++) {
+  // Save the index of the last occurrence for each date in lastOccurrences object.
+  lastOccurrences[data[i].name] = i;
+}
+
+// Create a new array by mapping over the original data array.
+const newData = data.map((entry, index) => {
+  // Return a new object with the same properties as the original object.
+  // Replace the 'name' field with an empty string if it's not the last occurrence.
+  return {
+    ...entry,
+    name: lastOccurrences[entry.name] === index ? entry.name : ''
+  };
+});
+
+
   return (
     <>
       {/* title */}
@@ -39,7 +56,7 @@ const Stats = () => {
         <h1 id="progress">Your Progress</h1>
         <div id="lineChart">
           <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={data}>
+            <LineChart data={newData}>
               {/* progress data line */}
               <Line id="lines" type="monotone" dataKey="uv" stroke="#023047" />
               {/* center line */}
